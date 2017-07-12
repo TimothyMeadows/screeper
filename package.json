@@ -1,0 +1,18 @@
+{
+  "name": "screeper",
+  "version": "1.0.0",
+  "description": "A bot for screepers",
+  "main": "main.js",
+  "dependencies": {
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://blackfeatherinnovation.visualstudio.com/defaultcollection/_git/Screeper"
+  },
+  "author": "Timothy D Meadows II",
+  "license": "MIT"
+}

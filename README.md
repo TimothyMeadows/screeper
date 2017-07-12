@@ -1,2 +1,2 @@
-# screeper
-A bot for the screeps game.
+# Screeper
+Run `npm install` before starting development.
