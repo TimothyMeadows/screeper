@@ -1,5 +1,4 @@
 require("extention.room");
-require("extention.spawn");
 require("extention.source");
 require("extention.creep");
 
