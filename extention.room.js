@@ -3,7 +3,7 @@
     console.log(`${message}, room: ${room.name}`);
 };
 
-Room.prototype.errorCodeToName = function (code) {
+Room.prototype.errorCodeToString = function (code) {
     switch (code) {
         case ERR_NOT_OWNER:
             return "ERR_NOT_OWNER";
@@ -41,8 +41,4 @@ Room.prototype.errorCodeToName = function (code) {
             return "UNKNOWN";
 
     }
-};
-
-Room.prototype.wallOff = function() {
-
 };
