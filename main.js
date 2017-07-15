@@ -13,17 +13,30 @@ module.exports.loop = function () {
         return;
     }
 
+    if (!Memory.rooms) Memory.rooms = {};
+    for (name in Memory.rooms) {
+        if (!Game.rooms[name]) {
+            if (Brain.room) Brain.room(name, true);
+            delete Memory.rooms[name];
+        }
+    }
+
     for (name in Game.rooms) {
         var room = Game.rooms[name], name, diff;
         if (!room.memory.room) room.memory.room = room.name;
         if (!room.memory.structures) room.memory.structures = {};
         if (!room.memory.creeps) room.memory.creeps = {};
 
-        // Synchronize memory with game state
+        // Synchronize room memory with game state
+        if (!Memory.rooms[name]) {
+            Memory.rooms[name] = { room: name };
+            if (Brain.room) Brain.room(name, false);
+        }
+
         for (name in room.memory.structures) {
             var structure = room.memory.structures[name];
             if (!Game.structures[structure.id]) {
-                if (Brain.structure) Brain.structure(room.memory.structures[structure.id], true);
+                if (Brain.structure) Brain.structure(room, room.memory.structures[structure.id], true);
                 delete room.memory.structures[structure.id];
             }
         }
@@ -35,14 +48,14 @@ module.exports.loop = function () {
 
             if (!room.memory.structures[structure.id]) {
                 room.memory.structures[structure.id] = new StructureModel(structure.id, structure.structureType, structure.pos);
-                if (Brain.structure) Brain.structure(room.memory.structures[structure.id], false);
+                if (Brain.structure) Brain.structure(room, room.memory.structures[structure.id], false);
             }
         }
 
         for (name in room.memory.creeps) {
             var creep = room.memory.creep[name];
             if (!Game.creeps[creep.name]) {
-                if (Brain.creep) Brain.creep(room.memory.creep[creep.name], true);
+                if (Brain.creep) Brain.creep(room, room.memory.creep[creep.name], true);
                 delete room.memory.creeps[creep.name];
             }
         }
@@ -54,13 +67,11 @@ module.exports.loop = function () {
 
             if (!room.memory.creeps[creep.name]) {
                 room.memory.creeps[creep.name] = new CreepModel(creep.id, creep.name);
-                if (Brain.creep) Brain.creep(room.memory.creeps[creep.name], false);
+                if (Brain.creep) Brain.creep(room, room.memory.creeps[creep.name], false);
             }
         }
 
         // Tick room
         if (Brain.tick) Brain.tick(room);
     }
-
-    console.log(global.random());
 }

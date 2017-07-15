@@ -1,6 +1,6 @@
 ﻿Room.prototype.log = function (message) {
     var room = this;
-    console.log(`${message}, room: ${room.name}`);
+    console.log(`${message}, time: ${Game.time}, room: ${room.name}`);
 };
 
 Room.prototype.errorCodeToString = function (code) {
