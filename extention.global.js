@@ -18,13 +18,15 @@ global.sync = function(left, right) {
     var diff = global.diff(left, right);
     if (diff.left.length > 0) {
         for (index in diff.left) {
+            index = diff.left[index];
             delete left[index];
             leftDiff.push(index);
         }
     }
 
     if (diff.right.length > 0) {
-        for (index in diff.left) {
+        for (index in diff.right) {
+            index = diff.right[index];
             left[index] = right[index];
             rightDiff.push(index);
         }
