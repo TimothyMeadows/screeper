@@ -38,7 +38,7 @@ Room.prototype.errorCodeToString = function (code) {
         case ERR_GCL_NOT_ENOUGH:
             return "ERR_GCL_NOT_ENOUGH";
         default:
-            return "UNKNOWN";
+            return `UNKNOWN: ${code}`;
 
     }
 };

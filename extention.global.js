@@ -1,36 +1,6 @@
-global.diff = function(left, right) {
-    var index, leftDiff = [], rightDiff = [];
-    for (index in left) {
-        if (!right[index])
-            leftDiff.push(index);
-    }
+var MersenneTwister = require("module.mersenne-twister");
 
-    for (index in right) {
-        if (!left[index]) 
-            rightDiff.push(index);
-    }
-
-    return { left: leftDiff, right: rightDiff };
-};
-
-global.sync = function(left, right) {
-    var index, leftDiff = [], rightDiff = [];
-    var diff = global.diff(left, right);
-    if (diff.left.length > 0) {
-        for (index in diff.left) {
-            index = diff.left[index];
-            delete left[index];
-            leftDiff.push(index);
-        }
-    }
-
-    if (diff.right.length > 0) {
-        for (index in diff.right) {
-            index = diff.right[index];
-            left[index] = right[index];
-            rightDiff.push(index);
-        }
-    }
-
-    return { left: leftDiff, right: rightDiff };
-};
+global.random = function() {
+    var hex = new MersenneTwister().genrand_res53().toString(16);
+    return hex.replace(".", "x");
+}
