@@ -3,15 +3,6 @@
     console.log(`${message}, time: ${Game.time}, room: ${room.name}`);
 };
 
-Room.prototype.map = function() {
-    var width = 49;
-    var height = 49;
-    var region1 = { x: 12, y: 24 };
-    var region2 = {x: 36, y: 24 };
-    var center = { x: 24, y: 24 };
-    
-}
-
 Room.prototype.errorCodeToString = function (code) {
     switch (code) {
         case ERR_NOT_OWNER:
