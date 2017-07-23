@@ -1,4 +1,18 @@
-﻿Room.prototype.log = function (message) {
+﻿Room.prototype.findSpawns = function (activeOnly) {
+    var room = this;
+    var spawns = [];
+    if (!activeOnly) activeOnly = false;
+
+    for (var name in Game.spawns) {
+        var spawn = Game.spawns[name];
+        if (room.name == spawn.room.name && (activeOnly && !spawn.spawning))
+            spawns.push(spawn);
+    }
+
+    return spawns;
+};
+
+Room.prototype.log = function (message) {
     var room = this;
     console.log(`${message}, time: ${Game.time}, room: ${room.name}`);
 };

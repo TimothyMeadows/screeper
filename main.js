@@ -1,5 +1,6 @@
 require("extention.global");
 require("extention.room");
+require("extention.spawn");
 require("extention.source");
 require("extention.creep");
 
@@ -49,20 +50,20 @@ module.exports.loop = function () {
         }
 
         for (name in room.memory.creeps) {
-            var creep = room.memory.creep[name];
+            var creep = room.memory.creeps[name];
             if (!Game.creeps[creep.name]) {
-                if (Brain.creep) Brain.creep(room, room.memory.creep[creep.name], true);
+                if (Brain.creep) Brain.creep(room, room.memory.creeps[creep.name], true);
                 delete room.memory.creeps[creep.name];
             }
         }
 
         for (name in Game.creeps) {
-            var creep = Game.creep[name];
+            var creep = Game.creeps[name];
             if (!creep.room || creep.room.name != room.name || creep.spawning || !creep.my)
                 continue;
 
-            if (!room.memory.creeps[creep.name]) {
-                room.memory.creeps[creep.name] = new CreepModel(creep.id, creep.name);
+            if (room.memory.creeps[creep.name].id == null) {
+                room.memory.creeps[creep.name].id = creep.id;
                 if (Brain.creep) Brain.creep(room, room.memory.creeps[creep.name], false);
             }
         }
