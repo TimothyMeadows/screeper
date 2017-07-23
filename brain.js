@@ -5,6 +5,9 @@
 // religious,high = population control, heal, distribution, pathfinding, capture
 // religious,low = population control, distribution, heal
 
+var CreepController = require("controller.creep");
+var MapInsight = require("insight.map");
+
 module.exports = {
     // Triggers on creation / destruction based on disposed
     creep: function (room, creep, disposed) {
@@ -21,11 +24,16 @@ module.exports = {
             room.log(`structure ${structure.id}:${structure.type} was created!`);
     },
     // Triggers on creation / destruction based on disposed
-    room: function(room, disposed) {
+    room: function(name, disposed) 
+    {
         if (disposed)
-            global.log(`room ${room} was lost!`);
-        else
-            global.log(`room ${room} was gained!`);
+            global.log(`room ${name} was lost!`);
+        else {
+            global.log(`room ${name} was gained!`);
+
+            var room = Game.rooms[name];
+            room.memory.map = new MapInsight(room);
+        }
     },
     // Triggers on cpu limit being reached, other triggers will be skipped until the next tick to allow time to catch up
     overload: function() {
@@ -34,15 +42,11 @@ module.exports = {
     // Triggers each game ticks for each room if there cpu.
     tick: function(room, disposed) {
         if (!room.controller) {
+            // TODO: add exploration mapping?
             room.log("Room has no controller, nothing to do!");
             return;
         }
 
-        switch(room.controller.level) {
-            case 0:
-            case 1:
-                // level 1 priorities loaded?
-                break; // 7+
-        }
+        CreepController.tick(room, room.controller.level);
     }
 };

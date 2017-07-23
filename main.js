@@ -13,6 +13,7 @@ module.exports.loop = function () {
         return;
     }
 
+    var name;
     if (!Memory.rooms) Memory.rooms = {};
     for (name in Memory.rooms) {
         if (!Game.rooms[name]) {
@@ -22,14 +23,9 @@ module.exports.loop = function () {
     }
 
     for (name in Game.rooms) {
-        var room = Game.rooms[name], name, diff;
-        if (!room.memory.room) room.memory.room = room.name;
-        if (!room.memory.structures) room.memory.structures = {};
-        if (!room.memory.creeps) room.memory.creeps = {};
-
-        // Synchronize room memory with game state
+        var room = Game.rooms[name], diff;
         if (!Memory.rooms[name]) {
-            Memory.rooms[name] = { room: name };
+            Memory.rooms[name] = { room: name, structures: {}, creeps: {} };
             if (Brain.room) Brain.room(name, false);
         }
 
