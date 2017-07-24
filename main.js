@@ -14,6 +14,10 @@ module.exports.loop = function () {
         return;
     }
 
+    if (Memory.creeps) delete Memory.creeps;
+    if (Memory.flags) delete Memory.flags;
+    if (Memory.spawns) delete Memory.spawns;
+
     var name;
     if (!Memory.rooms) Memory.rooms = {};
     for (name in Memory.rooms) {
@@ -62,7 +66,7 @@ module.exports.loop = function () {
             if (!creep.room || creep.room.name != room.name || creep.spawning || !creep.my)
                 continue;
 
-            if (room.memory.creeps[creep.name].id == null) {
+            if (room.memory.creeps[creep.name].id == -1) {
                 room.memory.creeps[creep.name].id = creep.id;
                 if (Brain.creep) Brain.creep(room, room.memory.creeps[creep.name], false);
             }

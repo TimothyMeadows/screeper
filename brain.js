@@ -14,7 +14,7 @@ module.exports = {
         if (disposed)
             room.log(`creep ${creep.id}:${creep.name} has died!`);
         else
-            room.log(`creep ${creep.id}:${creep.type} was born!`);
+            room.log(`creep ${creep.id}:${creep.name} was born!`);
     },
     // Triggers on creation / destruction based on disposed
     structure: function(room, structure, disposed) {
@@ -45,6 +45,9 @@ module.exports = {
         }
 
         RoomController.tick(room);
-        CreepController.tick(room);
+
+        for (var name in room.memory.creeps)
+            CreepController.tick(room, room.memory.creeps[name]);
+        
     }
 };
