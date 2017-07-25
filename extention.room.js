@@ -13,7 +13,7 @@
     return count;
 };
 
-Room.prototype.findSpawns = function (activeOnly) {
+Room.prototype.spawns = function (activeOnly) {
     var room = this;
     var spawns = [];
     if (!activeOnly) activeOnly = false;

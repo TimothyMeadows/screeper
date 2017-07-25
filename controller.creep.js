@@ -10,12 +10,13 @@ module.exports = CreepController = {
                 case "worker":
                     switch (pointer.caste.specialization) {
                         case "miner":
-                            if (creep.carry.energy < creep.carryCapacity) {
+                            if (creep.carry.energy === 0) {
                                 creep.change("energy-collector", true);
                             } else {
                                 if (room.population("religious") === 0) {
-                                    console.log("should be in distributor mode now!");
-                                    // change to distributor task
+                                    creep.change("energy-distributor", true);
+                                } else {
+                                    pointer.task.memory.full = true;
                                 }
                             }
                             break;

@@ -188,7 +188,7 @@ module.exports = SpawnController = {
             }
 
             var casteCount = room.memory.map.population / 3;
-            var spawns = room.findSpawns(true), spawn;
+            var spawns = room.spawns(true), spawn;
             if (spawns.length == 0) {
                 room.log("no avilable spawner found!");
                 return;
