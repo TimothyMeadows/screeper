@@ -1,7 +1,8 @@
 var MapInsight = require("insight.map");
 var SpawnController = require("controller.spawn");
 
-module.exports = {
+var RoomController;
+module.exports = RoomController = {
     gain: function (room) {
         room.memory.map = new MapInsight(room);
 

@@ -11,7 +11,6 @@ Spawn.prototype.spawnCaste = function (model, level) {
         case OK:
             spawn.room.log(`spawning ${model.name}`);
             spawn.createCreep(model.training, creep.name);
-            delete Memory.creeps[creep.name]; // moved to room.creeps, auto created by spawn.createCreep
             break;
         default:
             spawn.room.log(`can't spawn ${model.name}, training: ${JSON.stringify(model.training)}, reason: ${spawn.room.errorCodeToString(status)}`);

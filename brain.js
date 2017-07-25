@@ -8,7 +8,8 @@
 var RoomController = require("controller.room");
 var CreepController = require("controller.creep");
 
-module.exports = {
+var Brain;
+module.exports = Brain = {
     // Triggers on creation / destruction based on disposed
     creep: function (room, creep, disposed) {
         if (disposed)

@@ -1,4 +1,19 @@
-﻿Room.prototype.findSpawns = function (activeOnly) {
+﻿Room.prototype.population = function (name) {
+    var room = this, count = 0, i;
+
+    if (!name)
+        return _.size(room.memory.creeps);
+
+    for (i in room.memory.creeps) {
+        var creep = room.memory.creeps[i];
+        if (creep.caste.name === name)
+            count++;
+    }
+
+    return count;
+};
+
+Room.prototype.findSpawns = function (activeOnly) {
     var room = this;
     var spawns = [];
     if (!activeOnly) activeOnly = false;

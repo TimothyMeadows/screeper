@@ -1,11 +1,23 @@
-module.exports = {
+var CreepController;
+module.exports = CreepController = {
     tick: function (room, pointer) {
         if (pointer.task.idle === true) {
+            var creep = Game.getObjectById(pointer.id);
+            if (!creep)
+                return; // not ready
+
             switch (pointer.caste.name) {
                 case "worker":
                     switch (pointer.caste.specialization) {
                         case "miner":
-                            // go mine!!
+                            if (creep.carry.energy < creep.carryCapacity) {
+                                creep.change("energy-collector", true);
+                            } else {
+                                if (room.population("religious") === 0) {
+                                    console.log("should be in distributor mode now!");
+                                    // change to distributor task
+                                }
+                            }
                             break;
                         case "builder":
                             break;
