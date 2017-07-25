@@ -1,10 +1,3 @@
-// worker,high = population control, repair, collection, roads, expand, upgrade
-// worker,low = population control, repair, collection
-// warrior,high = population control, defend, scout, attack, watch
-// warrior,low = population control, defend, watch
-// religious,high = population control, heal, distribution, pathfinding, capture
-// religious,low = population control, distribution, heal
-
 var RoomController = require("controller.room");
 var CreepController = require("controller.creep");
 

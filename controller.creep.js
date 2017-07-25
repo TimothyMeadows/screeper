@@ -21,8 +21,30 @@ module.exports = CreepController = {
                             }
                             break;
                         case "builder":
+                            if (room.sites() === 0) {
+                                if (creep.carry.energy === 0) {
+                                    creep.change("energy-collector", true);
+                                } else {
+                                    if (room.population("religious") === 0) {
+                                        creep.change("energy-distributor", true);
+                                    } else {
+                                        pointer.task.memory.full = true;
+                                    }
+                                }
+                            } else {
+                                creep.change("builder", true);
+                            }
                             break;
                         case "contractor":
+                            if (creep.carry.energy === 0) {
+                                creep.change("energy-collector", true);
+                            } else {
+                                if (room.population("religious") === 0) {
+                                    creep.change("energy-distributor", true);
+                                } else {
+                                    pointer.task.memory.full = true;
+                                }
+                            }
                             break;
                     }
                     break;

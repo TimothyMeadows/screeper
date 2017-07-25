@@ -4,7 +4,7 @@ var aquire = function (type, pointer, creep) {
             var i, resources = creep.room.find(FIND_DROPPED_RESOURCES);
             if (resources.length && resources.length > 0) {
                 for (i in resources) {
-                    resource = resources[i];
+                    var resource = resources[i];
                     
                     pointer.task.target = resource.id;
                     creep.room.log(`${creep.name} has been assgined collect resource, target: ${pointer.task.target}`);

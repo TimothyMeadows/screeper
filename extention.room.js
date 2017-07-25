@@ -1,4 +1,9 @@
-﻿Room.prototype.population = function (name) {
+﻿Room.prototype.sites = function () {
+    var room = this;
+    return _.size(room.find(FIND_CONSTRUCTION_SITES));
+};
+
+Room.prototype.population = function (name) {
     var room = this, count = 0, i;
 
     if (!name)
