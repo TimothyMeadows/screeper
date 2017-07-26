@@ -1,7 +1,11 @@
 var aquire = function (pointer, creep) {
     var i, creeps = creep.room.find(FIND_MY_CREEPS, {
         filter: function (c) {
-            return c.carry.energy > 0 && (c.room.memory.creeps[c.name].caste.specialization === "miner" || c.room.memory.creeps[c.name].caste.name === "religious");
+            return c.carry.energy > 0 && (c.room.memory.creeps[c.name].caste.specialization === "miner"
+                || (c.room.memory.creeps[c.name].caste.name === "religious"
+                    && pointer.caste.name !== "religious"
+                    && c.room.memory.creeps[c.name].id !== creep.id
+                ));
         }
     });
 
@@ -57,8 +61,12 @@ module.exports = TaskEnergyCollector = {
             transfer(pointer, creep, target);
         } else {
             aquire(pointer, creep);
-            if (pointer.task.target === null)
-                creep.change("idle", true);
+            if (pointer.task.target === null) {
+                if (pointer.caste.name === "worker")
+                    creep.change("energy-miner", true);
+                else
+                    creep.change("resource-collector", true);
+            }
         }
     }
 };

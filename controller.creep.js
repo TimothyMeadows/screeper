@@ -23,17 +23,21 @@ module.exports = CreepController = {
                         case "builder":
                             if (room.sites() === 0) {
                                 if (creep.carry.energy < creep.carryCapacity) {
-                                    creep.change("energy-miner", true);
-                                } else {
                                     if (room.population("religious") === 0) {
-                                        creep.change("energy-distributor", true);
+                                        creep.change("energy-miner", true);
                                     } else {
-                                        pointer.task.memory.full = true;
+                                        creep.change("energy-collector", true);
                                     }
+                                } else {
+                                    creep.change("energy-distributor", true);
                                 }
                             } else {
                                 if (creep.carry.energy < creep.carryCapacity) {
-                                    creep.change("energy-miner", true);
+                                    if (room.population("religious") === 0) {
+                                        creep.change("energy-miner", true);
+                                    } else {
+                                        creep.change("energy-collector", true);
+                                    }
                                 } else {
                                     creep.change("builder", true);
                                 }
@@ -45,7 +49,7 @@ module.exports = CreepController = {
                                     creep.change("energy-miner", true);
                                 } else {
                                     creep.change("energy-collector", true);
-                                }        
+                                }
                             } else {
                                 if (room.population("religious") === 0) {
                                     creep.change("energy-distributor", true);
@@ -73,7 +77,11 @@ module.exports = CreepController = {
                             }
                             break;
                         case "ranger":
-                            // TODO: This should be scouting code!
+                            if (creep.carry.energy < creep.carryCapacity) {
+                                creep.change("energy-collector", true);
+                            } else {
+                                creep.change("energy-distributor", true);
+                            }
                             break;
                     }
                     break;
