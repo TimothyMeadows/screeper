@@ -22,18 +22,22 @@ Creep.prototype.traverse = function (target) {
     creep.moveTo(target);
 };
 
-Creep.prototype.network = {
-    working: function (id) {
-        var creep = this, name, count = 0;
-        for (name in creep.room.memory.creeps) {
-            var pointer = creep.room.memory.creeps[name];
-            if (pointer.task.target) {
-                if (pointer.task.target === id) {
-                    count++;
+Creep.prototype.network = function () {
+    var creep = this, networking = {
+        working: function (id) {
+            var name, count = 0;
+            for (name in creep.room.memory.creeps) {
+                var pointer = creep.room.memory.creeps[name];
+                if (pointer.task.target) {
+                    if (pointer.task.target === id) {
+                        count++;
+                    }
                 }
             }
-        }
 
-        return count;
-    }
+            return count;
+        }
+    };
+
+    return networking;
 };

@@ -14,10 +14,6 @@ module.exports.loop = function () {
         return;
     }
 
-    if (Memory.creeps) delete Memory.creeps;
-    if (Memory.flags) delete Memory.flags;
-    if (Memory.spawns) delete Memory.spawns;
-
     var name;
     if (!Memory.rooms) Memory.rooms = {};
     for (name in Memory.rooms) {

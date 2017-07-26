@@ -1,5 +1,10 @@
 var aquire = function (pointer, creep) {
-    var source = creep.pos.findClosestByRange(FIND_SOURCES_ACTIVE);
+    var source = creep.pos.findClosestByRange(FIND_SOURCES_ACTIVE, {
+        filter: function (source) {
+            console.log(source.getCapacity());
+            return creep.network().working(source.id) < source.getCapacity()
+        }
+    });
     if (source == null) {
         return;
     }
