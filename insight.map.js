@@ -4,7 +4,7 @@ var map = new SquareMap();
 var MapInsights;
 module.exports = MapInsights = function (room) {
     var population = this.population = 0;
-    var specialized = this.specialized = 1;
+    var growth = this.growth = null;
     var region1 = this.region1 = { score: 0 };
     var region2 = this.region2 = { score: 0 };
     var center = this.center = { score: 0 };

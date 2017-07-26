@@ -186,7 +186,6 @@ module.exports = SpawnController = {
                 }
             }
 
-            var casteCount = room.memory.map.population / 3;
             var spawns = room.spawns(true), spawn;
             if (spawns.length == 0) {
                 room.log("no avilable spawner found!");
@@ -199,10 +198,10 @@ module.exports = SpawnController = {
                 spawn = spawns[Math.floor((Math.random() * spawns.length) + 1)];
 
             for (var i = 0; i <= creeps.length - 1; i++) {
-                if (creeps[i] < casteCount) {
+                if (creeps[i] < room.memory.map.growth.caste[i]) {
                     var specialization = null;
                     for (var s = 0; s <= specs[i].length - 1; s++) {
-                        if (specs[i][s] < room.memory.map.specialized) {
+                        if (specs[i][s] < room.memory.map.growth.specialization[i][s]) {
                             specialization = specName(i, s);
                             break;
                         }
