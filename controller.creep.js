@@ -15,8 +15,6 @@ module.exports = CreepController = {
                             } else {
                                 if (room.population("religious") === 0) {
                                     creep.change("energy-distributor", true);
-                                } else {
-                                    pointer.task.memory.full = true;
                                 }
                             }
                             break;
@@ -29,7 +27,11 @@ module.exports = CreepController = {
                                         creep.change("energy-collector", true);
                                     }
                                 } else {
-                                    creep.change("energy-distributor", true);
+                                    if (room.population("religious") === 0) {
+                                        creep.change("energy-distributor", true);
+                                    } else {
+                                        creep.change("upgrade-controller", true);
+                                    }
                                 }
                             } else {
                                 if (creep.carry.energy < creep.carryCapacity) {

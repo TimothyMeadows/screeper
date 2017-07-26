@@ -1,16 +1,16 @@
 var aquire = function (pointer, creep) {
     var source = creep.pos.findClosestByRange(FIND_SOURCES_ACTIVE, {
         filter: function (source) {
-            console.log(source.getCapacity());
             return creep.network().working(source.id) < source.getCapacity()
         }
     });
+    
     if (source == null) {
         return;
     }
 
     pointer.task.target = source.id;
-    creep.room.log(`${creep.name} has been assgined mine source, target: ${pointer.task.target}`);
+    creep.room.log(`${creep.name} has been assgined mine source, target: ${pointer.task.target}, workers: ${creep.network().working(source.id)}/${source.getCapacity()}`);
 };
 
 var harvest = function (pointer, creep, source) {
@@ -23,7 +23,7 @@ var harvest = function (pointer, creep, source) {
             break;
         case OK:
             if (source.energy === 0) {
-                creep.change("idle", true);;
+                creep.change("idle", true);
             }
 
             if (creep.carry.energy === creep.carryCapacity) {

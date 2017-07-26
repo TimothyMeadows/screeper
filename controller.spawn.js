@@ -63,7 +63,7 @@ var calculateExperiance = function (room, name, spec) {
     while (cost < room.energyAvailable) {
         if (room.energyAvailable > 300) {
             for (i in training.focus) {
-                upgradeCost += BODYPART_COST[focus[i]];
+                upgradeCost += BODYPART_COST[training.focus[i]];
             }
 
             if (cost + upgradeCost <= room.energyAvailable) {

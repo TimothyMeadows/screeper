@@ -1,10 +1,15 @@
 var aquire = function (pointer, creep) {
-    var structure = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
+    var structure = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
+        filter: function (s) {
+            return creep.network().working(s.id) < 2
+        }
+    });
+
     if (!structure)
         return;
 
     pointer.task.target = structure.id;
-    creep.room.log(`${creep.name} has been assgined build, target: ${pointer.task.target}`);
+    creep.room.log(`${creep.name} has been assgined build, target: ${pointer.task.target}, workers: ${creep.network().working(pointer.task.target)}/2`);
 };
 
 var build = function (pointer, creep, structure) {

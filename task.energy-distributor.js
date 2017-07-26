@@ -1,7 +1,7 @@
 var aquire = function (pointer, creep) {
     var structure = creep.pos.findClosestByRange(FIND_STRUCTURES, {
         filter: (s) => {
-            return s.energy !== s.energyCapacity;
+            return s.energy !== s.energyCapacity && creep.network().working(s.id) < 2;
         }
     });
 
@@ -11,7 +11,7 @@ var aquire = function (pointer, creep) {
     }
 
     pointer.task.target = structure.id;
-    creep.room.log(`${creep.name} has been assgined distribute energy, target: ${pointer.task.target}`);
+    creep.room.log(`${creep.name} has been assgined distribute energy, target: ${pointer.task.target}, workers: ${creep.network().working(pointer.task.target)}/2`);
 };
 
 var transfer = function (pointer, creep, structure) {

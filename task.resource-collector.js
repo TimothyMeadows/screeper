@@ -1,11 +1,15 @@
 var aquire = function (pointer, creep) {
-    var i, resources = creep.room.find(FIND_DROPPED_RESOURCES);
+    var i, resources = creep.room.find(FIND_DROPPED_RESOURCES, {
+        filter: function (r) {
+            return creep.network().working(r.id) < 1
+        }
+    });
     if (resources.length && resources.length > 0) {
         for (i in resources) {
             var resource = resources[i];
 
             pointer.task.target = resource.id;
-            creep.room.log(`${creep.name} has been assgined collect resource, target: ${pointer.task.target}`);
+            creep.room.log(`${creep.name} has been assgined collect resource, target: ${pointer.task.target}, workers: ${creep.network().working(pointer.task.target)}/1`);
             break;
         }
     }
