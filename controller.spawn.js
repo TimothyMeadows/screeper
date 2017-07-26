@@ -4,7 +4,7 @@ var calculateTraining = function (name, spec) {
     var base, focus;
     switch (name) {
         case "warrior":
-            base = [ATTACK, MOVE, MOVE, MOVE, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH];
+            base = [ATTACK, MOVE, MOVE, TOUGH, TOUGH, CARRY, CARRY];
             switch (spec) {
                 case "purifier":
                     focus = [RANGED_ATTACK, MOVE];
@@ -16,7 +16,6 @@ var calculateTraining = function (name, spec) {
                     focus = [ATTACK, MOVE];
                     break;
             }
-            focus = [ATTACK, TOUGH, TOUGH];
             break;
         case "religious":
             base = [CARRY, CARRY, CARRY, MOVE, MOVE, MOVE];
@@ -28,7 +27,7 @@ var calculateTraining = function (name, spec) {
                     focus = [HEAL, MOVE];
                     break;
                 case "ranger":
-                    focus = [CAPTURE, TOUGH];
+                    focus = [CLAIM, TOUGH];
                     break;
             }
             break;
@@ -43,7 +42,7 @@ var calculateTraining = function (name, spec) {
                     focus = [MOVE, WORK];
                     break;
                 case "contractor":
-                    focus = [TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, WORK];
+                    focus = [MOVE, CARRY];
                     break;
             }
             break;
@@ -111,9 +110,9 @@ module.exports = SpawnController = {
                             case 0:
                                 return "miner";
                             case 1:
-                                return "builder";
-                            case 2:
                                 return "contractor";
+                            case 2:
+                                return "builder";
                         }
                     case 1:
                         switch (s) {
@@ -148,10 +147,10 @@ module.exports = SpawnController = {
                             case "miner":
                                 specs[0][0]++;
                                 break;
-                            case "builder":
+                            case "contractor":
                                 specs[0][1]++;
                                 break;
-                            case "contractor":
+                            case "builder":
                                 specs[0][2]++;
                                 break;
                         }

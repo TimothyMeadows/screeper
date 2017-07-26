@@ -3,20 +3,37 @@ Creep.prototype.change = function (name, keepMemory) {
     if (!keepMemory) keepMemory = false;
 
     if (keepMemory === false)
-        delete Memory.rooms[creep.room.name].creeps[creep.name].task.memory;
+        delete creep.room.memory.creeps[creep.name].task.memory;
 
-    Memory.rooms[creep.room.name].creeps[creep.name].task.start = Game.time;
-    Memory.rooms[creep.room.name].creeps[creep.name].task.target = null;
-    Memory.rooms[creep.room.name].creeps[creep.name].task.idle = false;
-    Memory.rooms[creep.room.name].creeps[creep.name].task.name = name;
+    creep.room.memory.creeps[creep.name].task.start = Game.time;
+    creep.room.memory.creeps[creep.name].task.target = null;
+    creep.room.memory.creeps[creep.name].task.idle = false;
+    creep.room.memory.creeps[creep.name].task.name = name;
 };
 
 Creep.prototype.next = function (name) {
     var creep = this;
-    Memory.rooms[creep.room.name].creeps[creep.name].task.next = name;
+    creep.room.memory.creeps[creep.name].task.next = name;
 };
 
 Creep.prototype.traverse = function (target) {
+    // TODO: This should be deciding if it should use pathing or moveTo based on distance to move
     var creep = this;
     creep.moveTo(target);
+};
+
+Creep.prototype.network = {
+    working: function (id) {
+        var creep = this, name, count = 0;
+        for (name in creep.room.memory.creeps) {
+            var pointer = creep.room.memory.creeps[name];
+            if (pointer.task.target) {
+                if (pointer.task.target === id) {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
 };

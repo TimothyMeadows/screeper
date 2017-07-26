@@ -10,8 +10,8 @@ module.exports = CreepController = {
                 case "worker":
                     switch (pointer.caste.specialization) {
                         case "miner":
-                            if (creep.carry.energy === 0) {
-                                creep.change("energy-collector", true);
+                            if (creep.carry.energy < creep.carryCapacity) {
+                                creep.change("energy-miner", true);
                             } else {
                                 if (room.population("religious") === 0) {
                                     creep.change("energy-distributor", true);
@@ -22,8 +22,8 @@ module.exports = CreepController = {
                             break;
                         case "builder":
                             if (room.sites() === 0) {
-                                if (creep.carry.energy === 0) {
-                                    creep.change("energy-collector", true);
+                                if (creep.carry.energy < creep.carryCapacity) {
+                                    creep.change("energy-miner", true);
                                 } else {
                                     if (room.population("religious") === 0) {
                                         creep.change("energy-distributor", true);
@@ -32,17 +32,25 @@ module.exports = CreepController = {
                                     }
                                 }
                             } else {
-                                creep.change("builder", true);
+                                if (creep.carry.energy < creep.carryCapacity) {
+                                    creep.change("energy-miner", true);
+                                } else {
+                                    creep.change("builder", true);
+                                }
                             }
                             break;
                         case "contractor":
-                            if (creep.carry.energy === 0) {
-                                creep.change("energy-collector", true);
+                            if (creep.carry.energy < creep.carryCapacity) {
+                                if (room.population("religious") === 0) {
+                                    creep.change("energy-miner", true);
+                                } else {
+                                    creep.change("energy-collector", true);
+                                }        
                             } else {
                                 if (room.population("religious") === 0) {
                                     creep.change("energy-distributor", true);
                                 } else {
-                                    pointer.task.memory.full = true;
+                                    creep.change("upgrade-controller", true);
                                 }
                             }
                             break;
@@ -51,10 +59,21 @@ module.exports = CreepController = {
                 case "religious":
                     switch (pointer.caste.specialization) {
                         case "prior":
+                            if (creep.carry.energy < creep.carryCapacity) {
+                                creep.change("energy-collector", true);
+                            } else {
+                                creep.change("energy-distributor", true);
+                            }
                             break;
                         case "healer":
+                            if (creep.carry.energy < creep.carryCapacity) {
+                                creep.change("energy-collector", true);
+                            } else {
+                                creep.change("energy-distributor", true);
+                            }
                             break;
                         case "ranger":
+                            // TODO: This should be scouting code!
                             break;
                     }
                     break;

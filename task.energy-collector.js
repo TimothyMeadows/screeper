@@ -1,63 +1,38 @@
-var aquire = function (type, pointer, creep) {
-    switch (type) {
-        case "resource":
-            var i, resources = creep.room.find(FIND_DROPPED_RESOURCES);
-            if (resources.length && resources.length > 0) {
-                for (i in resources) {
-                    var resource = resources[i];
-                    
-                    pointer.task.target = resource.id;
-                    creep.room.log(`${creep.name} has been assgined collect resource, target: ${pointer.task.target}`);
-                    break;
-                }
-            }
-            break;
-        case "source":
-            var source = creep.pos.findClosestByRange(FIND_SOURCES_ACTIVE);
-            if (source == null) {
-                return;
-            }
+var aquire = function (pointer, creep) {
+    var i, creeps = creep.room.find(FIND_MY_CREEPS, {
+        filter: function (c) {
+            return c.carry.energy > 0 && (c.room.memory.creeps[c.name].caste.specialization === "miner" || c.room.memory.creeps[c.name].caste.name === "religious");
+        }
+    });
 
-            pointer.task.target = source.id;
-            creep.room.log(`${creep.name} has been assgined mine source, target: ${pointer.task.target}`);
-            break;
+    if (creeps.length === 0)
+        return;
+
+    creeps = _.sortBy(creeps, function (c) {
+        return c.carry.energy;
+    }).reverse();
+
+    for (i in creeps) {
+        var current = creeps[i];
+
+        pointer.task.target = current.id;
+        creep.room.log(`${creep.name} has been assgined collect resource, target: ${pointer.task.target}`);
+        break;
     }
 };
 
-var harvest = function (pointer, creep, source) {
-    switch (creep.harvest(source)) {
+var transfer = function (pointer, creep, target) {
+    switch (target.transfer(creep, RESOURCE_ENERGY)) {
         case ERR_NOT_IN_RANGE:
-            creep.traverse(source);
+            creep.traverse(target);
             break;
-        case ERR_NOT_ENOUGH_RESOURCES:
+        case ERR_FULL:
             creep.change("idle", true);
             break;
+        case ERR_NOT_ENOUGH_ENERGY:
         case OK:
-            if (source.energy === 0) {
-                creep.change("idle", true);;
-            }
-
-            if (creep.carry.energy === creep.carryCapacity) {
+            if (creep.carry.energy === 0) {
                 creep.change("idle", true);
-            }
-            break;
-    }
-};
-
-var pickup = function (pointer, creep, resource) {
-    switch (creep.pickup(resource, resource.amount - 1)) {
-        case ERR_NOT_IN_RANGE:
-            creep.traverse(resource);
-            break;
-        case OK:
-            if (creep.carry.energy === creep.carryCapacity) {
-                creep.change("idle", true);
-                return;
-            }
-
-            if (resource.amount === 0) {
-                creep.change("idle", true);
-                return;
             }
             break;
     }
@@ -67,45 +42,23 @@ var TaskEnergyCollector;
 module.exports = TaskEnergyCollector = {
     tick: function (room, pointer) {
         var creep = Game.getObjectById(pointer.id);
-
-        var resource, source;
-        if (creep.carry.energy < creep.carryCapacity) {
-            if (pointer.task.target) {
-                var target = Game.getObjectById(pointer.task.target);
-                if (!target) {
-                    pointer.task.target = null;
-                    return;
-                }
-
-                if (target instanceof Resource) {
-                    if (target.amount === 0) {
-                        pointer.task.target = null;
-                        return;
-                    }
-
-                    pickup(pointer, creep, target);
-                    return;
-                }
-
-                if (target instanceof Source) {
-                    if (target.energy === 0) {
-                        pointer.task.target = null;
-                        return;
-                    }
-
-                    harvest(pointer, creep, target);
-                    return;
-                }
-            } else {
-                aquire("resource", pointer, creep);
-                if (pointer.task.target === null)
-                    aquire("source", pointer, creep);
-
-                if (pointer.task.target === null)
-                    creep.change("idle", true);
+        if (pointer.task.target) {
+            var target = Game.getObjectById(pointer.task.target);
+            if (!target) {
+                pointer.task.target = null;
+                return;
             }
+
+            if (target.carry.energy === 0) {
+                pointer.task.target = null;
+                return;
+            }
+
+            transfer(pointer, creep, target);
         } else {
-            creep.change("idle", true);
+            aquire(pointer, creep);
+            if (pointer.task.target === null)
+                creep.change("idle", true);
         }
     }
 };

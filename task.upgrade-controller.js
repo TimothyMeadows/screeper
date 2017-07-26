@@ -1,31 +1,30 @@
 var aquire = function (pointer, creep) {
-    var structure = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
-    if (!structure)
-        return;
-
-    pointer.task.target = structure.id;
-    creep.room.log(`${creep.name} has been assgined build, target: ${pointer.task.target}`);
+    pointer.task.target = creep.room.controller.id;
+    creep.room.log(`${creep.name} has been assgined upgrade controller, target: ${pointer.task.target}`);
 };
 
-var build = function (pointer, creep, structure) {
-    switch (creep.build(structure)) {
+var upgrade = function (pointer, creep, target) {
+    switch (creep.upgradeController(target)) {
         case ERR_NOT_IN_RANGE:
-            creep.traverse(structure);
+            creep.traverse(target);
             break;
-        case ERR_INVALID_TARGET:
-        case ERR_NOT_ENOUGH_ENERGY:
         case OK:
             if (creep.carry.energy === 0) {
                 creep.change("idle", true);
+                return;
             }
             break;
     }
 };
 
-var TaskBuilder;
-module.exports = TaskBuilder = {
+var TaskUpgradeController;
+module.exports = TaskUpgradeController = {
     tick: function (room, pointer) {
         var creep = Game.getObjectById(pointer.id);
+        if (creep.carry.energy === 0) {
+            creep.change("idle", true);
+            return;
+        }
 
         if (pointer.task.target) {
             var target = Game.getObjectById(pointer.task.target);
@@ -34,7 +33,7 @@ module.exports = TaskBuilder = {
                 return;
             }
 
-            build(pointer, creep, target);
+            upgrade(pointer, creep, target);
         } else {
             aquire(pointer, creep);
             if (pointer.task.target === null)

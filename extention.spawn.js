@@ -9,7 +9,7 @@ Spawn.prototype.spawnCaste = function (model, level) {
     var status = spawn.canCreateCreep(model.training, creep.name);
     switch (status) {
         case OK:
-            spawn.room.log(`spawning ${model.name}`);
+            spawn.room.log(`spawning ${model.name} caste ${model.specialization}`);
             spawn.createCreep(model.training, creep.name);
             break;
         default:

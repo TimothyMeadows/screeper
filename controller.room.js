@@ -19,6 +19,7 @@ module.exports = RoomController = {
             case 1:
                 room.memory.map.population = 6;
                 room.memory.map.specialized = 1;
+                break;
             case 2:
             case 3:
                 room.memory.map.population = 9;

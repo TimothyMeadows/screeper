@@ -5,8 +5,10 @@ var aquire = function (pointer, creep) {
         }
     });
 
-    if (!structure)
+    if (!structure) {
+        pointer.task.target = null;
         return;
+    }
 
     pointer.task.target = structure.id;
     creep.room.log(`${creep.name} has been assgined distribute energy, target: ${pointer.task.target}`);
