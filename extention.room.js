@@ -1,4 +1,16 @@
-﻿Room.prototype.sites = function () {
+﻿Room.prototype.repairs = function () {
+    var room = this;
+    return _.size(room.find(FIND_STRUCTURES, {
+        filter: function (s) {
+            return (s.structureType === "constructedWall" || s.structureType === "rampart" || s.structureType === "road" || s.structureType === "container")
+                && (s.hits > 2999 && (s.structureType === "constructedWall" || s.structureType === "rampart"))
+                || (s.hits > 3999 && s.structureType === "road")
+                || (s.hits > 239000 && s.structureType === "container")
+        }
+    }));
+};
+
+Room.prototype.sites = function () {
     var room = this;
     return _.size(room.find(FIND_CONSTRUCTION_SITES));
 };

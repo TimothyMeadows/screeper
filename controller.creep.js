@@ -30,7 +30,7 @@ module.exports = CreepController = {
                                     if (room.population("religious") === 0) {
                                         creep.change("energy-distributor", true);
                                     } else {
-                                        creep.change("upgrade-controller", true);
+                                        creep.change("repairer", true);
                                     }
                                 }
                             } else {
