@@ -30,7 +30,12 @@ module.exports = CreepController = {
                                     if (room.population("religious") === 0) {
                                         creep.change("energy-distributor", true);
                                     } else {
-                                        creep.change("repairer", true);
+                                        if (room.repairs() === 0) {
+                                            creep.change("upgrade-controller", true);
+                                        } else {
+                                            creep.change("repairer", true);
+                                        }
+
                                     }
                                 }
                             } else {
@@ -53,11 +58,16 @@ module.exports = CreepController = {
                                     creep.change("energy-collector", true);
                                 }
                             } else {
-                                if (room.population("religious") === 0) {
-                                    creep.change("energy-distributor", true);
+                                if (room.repairs() === 0) {
+                                    if (room.population("religious") === 0) {
+                                        creep.change("energy-distributor", true);
+                                    } else {
+                                        creep.change("upgrade-controller", true);
+                                    }
                                 } else {
-                                    creep.change("upgrade-controller", true);
+                                    creep.change("repairer", true);
                                 }
+
                             }
                             break;
                     }

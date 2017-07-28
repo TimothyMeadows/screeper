@@ -1,7 +1,7 @@
 var aquire = function (pointer, creep) {
     var source = creep.pos.findClosestByRange(FIND_SOURCES_ACTIVE, {
         filter: function (source) {
-            return creep.network().working(source.id) < source.getCapacity()
+            return (creep.network().working(source.id) + 1) < source.getCapacity()
         }
     });
     
@@ -38,7 +38,7 @@ module.exports = TaskEnergyMiner = {
     tick: function (room, pointer) {
         var creep = Game.getObjectById(pointer.id);
 
-        var resource, source;
+        var resource, target;
         if (creep.carry.energy < creep.carryCapacity) {
             if (pointer.task.target) {
                 var target = Game.getObjectById(pointer.task.target);
@@ -48,6 +48,11 @@ module.exports = TaskEnergyMiner = {
                 }
 
                 if (target.energy === 0) {
+                    pointer.task.target = null;
+                    return;
+                }
+
+                if (creep.network().working(target.id) >= target.getCapacity()) {
                     pointer.task.target = null;
                     return;
                 }

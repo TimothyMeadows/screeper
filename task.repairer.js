@@ -1,11 +1,10 @@
 var aquire = function (pointer, creep) {
     var structure = creep.pos.findClosestByRange(FIND_STRUCTURES, {
         filter: function (s) {
-            return (creep.network().working(s.id) < 1)
-                && (s.structureType === "constructedWall" || s.structureType === "rampart" || s.structureType === "road" || s.structureType === "container")
-                && (s.hits > 2999 && (s.structureType === "constructedWall" || s.structureType === "rampart"))
-                || (s.hits > 3999 && s.structureType === "road")
-                || (s.hits > 239000 && s.structureType === "container")
+            return ((s.structureType === "constructedWall" || s.structureType === "rampart") && s.hits < 15000 )
+                || (s.structureType === "road" && s.hits < 4900)
+                || (s.structureType === "container" && s.hits < 20000)
+                && (creep.network().working(s.id) + 1 < 1)
         }
     });
 
