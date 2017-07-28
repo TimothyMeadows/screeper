@@ -6,7 +6,8 @@ Creep.prototype.change = function (name, keepMemory) {
         delete creep.room.memory.creeps[creep.name].task.memory;
 
     creep.room.memory.creeps[creep.name].task.start = Game.time;
-    creep.room.memory.creeps[creep.name].task.target = null;
+    if (name !== "idle")
+        creep.room.memory.creeps[creep.name].task.target = null;
     creep.room.memory.creeps[creep.name].task.idle = false;
     creep.room.memory.creeps[creep.name].task.name = name;
 };
