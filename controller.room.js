@@ -1,19 +1,20 @@
 var MapInsight = require("insight.map");
 var SpawnController = require("controller.spawn");
 
-var RoomController;
+var RoomController, levels = {};
 module.exports = RoomController = {
     gain: function (room) {
         room.memory.map = new MapInsight(room);
+        levels[room.name] = 1;
+    },
+    loss: function (name) {
+        if (levels[name]) delete levels[name];
+    },
+    tick: function (room) {
+        var change = levels[room.name] !== room.controller.level;
+        if (change) room.log(`room level changed, level: ${room.controller.level}`);
+        levels[room.name] = room.controller.level;
 
-        if (!room.controller) {
-            // TODO: Room has no controller build one if we can?
-        }
-    },
-    loss: function(name) {
-        // TODO: Lost a room :(
-    },
-    tick: function(room) {
         switch (room.controller.level) {
             case 0:
             case 1:
@@ -35,7 +36,7 @@ module.exports = RoomController = {
                 room.memory.map.growth = { caste: [9, 9, 9], specialization: [[4, 2, 3], [3, 3, 3], [3, 3, 3]] };
                 break;
         }
-        
+
         SpawnController.tick(room, _.size(room.memory.creeps), room.memory.map.population);
     }
 };

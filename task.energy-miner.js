@@ -1,12 +1,25 @@
 var aquire = function (pointer, creep) {
     var source = creep.pos.findClosestByRange(FIND_SOURCES_ACTIVE, {
         filter: function (source) {
-            return (creep.network().working(source.id) + 1) < source.getCapacity()
+            return (creep.network().working(source.id) + 1) <= source.getCapacity()
         }
     });
-    
+
     if (source == null) {
-        return;
+        var sources = creep.room.find(FIND_SOURCES_ACTIVE, {
+            filter: function (source) {
+                return (creep.network().working(source.id) + 1) <= source.getCapacity()
+            }
+        });
+
+        if (!sources || sources.length && sources.length === 0) {
+            console.log("no sources!");
+            return;
+        }
+
+        source = sources[0];
+        if (!source)
+            return;
     }
 
     pointer.task.target = source.id;
@@ -48,11 +61,6 @@ module.exports = TaskEnergyMiner = {
                 }
 
                 if (target.energy === 0) {
-                    pointer.task.target = null;
-                    return;
-                }
-
-                if (creep.network().working(target.id) >= target.getCapacity()) {
                     pointer.task.target = null;
                     return;
                 }

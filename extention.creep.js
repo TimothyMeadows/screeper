@@ -17,6 +17,19 @@ Creep.prototype.next = function (name) {
     creep.room.memory.creeps[creep.name].task.next = name;
 };
 
+Creep.prototype.construct = function (structureType, x, y) {
+    var creep = this;
+    var pos = new RoomPosition(x, y, creep.room.name);
+    var tile = Game.map.getTerrainAt(pos);
+
+    switch (tile) {
+        case "swamp":
+        case "plain":
+            pos.createConstructionSite(structureType);
+            break;
+    };
+}
+
 Creep.prototype.traverse = function (target) {
     // TODO: This should be deciding if it should use pathing or moveTo based on distance to move
     var creep = this;

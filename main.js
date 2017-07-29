@@ -57,6 +57,12 @@ module.exports.loop = function () {
             }
         }
 
+        for (name in Memory.creeps) {
+            if (!Game.creeps[name] || !Memory.creeps[name]._move) {
+                delete Memory.creeps[name];
+            }
+        }
+
         for (name in Game.creeps) {
             var creep = Game.creeps[name];
             if (!creep.room || creep.room.name != room.name || creep.spawning || !creep.my)
