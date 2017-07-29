@@ -1,4 +1,17 @@
-﻿Room.prototype.repairs = function () {
+﻿Room.prototype.priorityRepairs = function () {
+    var room = this;
+    var size = _.size(room.find(FIND_STRUCTURES, {
+        filter: function (s) {
+            return (s.structureType === "rampart" && s.hits < 15000 )
+                || (s.structureType === "road" && s.hits < 4900)
+                || (s.structureType === "container" && s.hits < 20000)
+        }
+    }));
+
+    return size;
+};
+
+Room.prototype.repairs = function () {
     var room = this;
     var size = _.size(room.find(FIND_STRUCTURES, {
         filter: function (s) {

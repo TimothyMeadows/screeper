@@ -14,8 +14,9 @@ module.exports = Screeper = {
     structure: function(room, structure, disposed) {
         if (disposed)
             room.log(`structure ${structure.id}:${structure.type} was destroyed!`);
-        else
+        else {
             room.log(`structure ${structure.id}:${structure.type} was created!`);
+        }
     },
     // Triggers on creation / destruction based on disposed
     room: function(name, disposed) 

@@ -19,23 +19,34 @@ module.exports = CreepController = {
                             }
                             break;
                         case "builder":
-                            if (room.sites() === 0) {
-                                if (creep.carry.energy < creep.carryCapacity) {
-                                    if (room.population("religious") === 0) {
-                                        creep.change("energy-miner", true);
+                            if (room.priorityRepairs() === 0) {
+                                if (room.sites() === 0) {
+                                    if (creep.carry.energy < creep.carryCapacity) {
+                                        if (room.population("religious") === 0) {
+                                            creep.change("energy-miner", true);
+                                        } else {
+                                            creep.change("energy-collector", true);
+                                        }
                                     } else {
-                                        creep.change("energy-collector", true);
+                                        if (room.population("religious") === 0) {
+                                            creep.change("energy-distributor", true);
+                                        } else {
+                                            if (room.repairs() === 0) {
+                                                creep.change("upgrade-controller", true);
+                                            } else {
+                                                creep.change("repairer", true);
+                                            }
+                                        }
                                     }
                                 } else {
-                                    if (room.population("religious") === 0) {
-                                        creep.change("energy-distributor", true);
-                                    } else {
-                                        if (room.repairs() === 0) {
-                                            creep.change("upgrade-controller", true);
+                                    if (creep.carry.energy < creep.carryCapacity) {
+                                        if (room.population("religious") === 0) {
+                                            creep.change("energy-miner", true);
                                         } else {
-                                            creep.change("repairer", true);
+                                            creep.change("energy-collector", true);
                                         }
-
+                                    } else {
+                                        creep.change("builder", true);
                                     }
                                 }
                             } else {
@@ -46,7 +57,7 @@ module.exports = CreepController = {
                                         creep.change("energy-collector", true);
                                     }
                                 } else {
-                                    creep.change("builder", true);
+                                    creep.change("priority-repairer", true);
                                 }
                             }
                             break;
@@ -58,16 +69,11 @@ module.exports = CreepController = {
                                     creep.change("energy-collector", true);
                                 }
                             } else {
-                                if (room.repairs() === 0) {
-                                    if (room.population("religious") === 0) {
-                                        creep.change("energy-distributor", true);
-                                    } else {
-                                        creep.change("upgrade-controller", true);
-                                    }
+                                if (room.population("religious") === 0) {
+                                    creep.change("energy-distributor", true);
                                 } else {
-                                    creep.change("repairer", true);
+                                    creep.change("upgrade-controller", true);
                                 }
-
                             }
                             break;
                     }

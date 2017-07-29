@@ -188,7 +188,6 @@ module.exports = SpawnController = {
 
             var spawns = room.spawns(true), spawn;
             if (spawns.length == 0) {
-                room.log("no avilable spawner found!");
                 return;
             }
 

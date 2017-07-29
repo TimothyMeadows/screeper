@@ -1,4 +1,9 @@
 var aquire = function (pointer, creep) {
+    if (creep.room.priorityRepairs() !== 0) {
+        creep.change("idle", true);
+        return;
+    }
+    
     var structure = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
         filter: function (s) {
             return creep.network().working(s.id) < 2
@@ -20,9 +25,10 @@ var build = function (pointer, creep, structure) {
         case ERR_INVALID_TARGET:
         case ERR_NOT_ENOUGH_ENERGY:
         case OK:
-            if (creep.carry.energy === 0) {
+            if (creep.carry.energy === 0)
                 creep.change("idle", true);
-            }
+            if (structure.progress === structure.progressTotal)
+                creep.change("idle", true);
             break;
     }
 };

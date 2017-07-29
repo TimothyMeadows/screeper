@@ -1,7 +1,7 @@
 var aquire = function (pointer, creep) {
     var structure = creep.pos.findClosestByRange(FIND_STRUCTURES, {
         filter: function (s) {
-            return ((s.structureType === "constructedWall" || s.structureType === "rampart") && s.hits < 15000)
+            return (s.structureType === "rampart" && s.hits < 15000)
                 || (s.structureType === "road" && s.hits < 4900)
                 && (creep.network().working(s.id) + 1 < 1)
         }
@@ -11,11 +11,11 @@ var aquire = function (pointer, creep) {
         return;
 
     pointer.task.target = structure.id;
-    creep.room.log(`${creep.name} has been assgined repair, target: ${pointer.task.target}, workers: ${creep.network().working(pointer.task.target)}/1`);
+    creep.room.log(`${creep.name} has been assgined priority repair, target: ${pointer.task.target}, type: ${structure.structureType}, workers: ${creep.network().working(pointer.task.target)}/1`);
 };
 
 var repair = function (pointer, creep, target) {
-    if (target.structureType === "rampart" || target.structureType === "constructedWall" && target.hits > 14999) {
+    if (target.structureType === "rampart" && target.hits > 14999) {
         creep.change("idle", true);
         return;
     }
@@ -41,8 +41,8 @@ var repair = function (pointer, creep, target) {
     }
 };
 
-var TaskRepairer;
-module.exports = TaskRepairer = {
+var TaskPriorityRepairer;
+module.exports = TaskPriorityRepairer = {
     tick: function (room, pointer) {
         var creep = Game.getObjectById(pointer.id);
 
@@ -56,8 +56,9 @@ module.exports = TaskRepairer = {
             repair(pointer, creep, target);
         } else {
             aquire(pointer, creep);
-            if (pointer.task.target === null)
+            if (pointer.task.target === null) {
                 creep.change("idle", true);
+            }
         }
     }
 };
