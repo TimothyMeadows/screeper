@@ -13,7 +13,6 @@ var aquire = function (pointer, creep) {
         });
 
         if (!sources || sources.length && sources.length === 0) {
-            console.log("no sources!");
             return;
         }
 

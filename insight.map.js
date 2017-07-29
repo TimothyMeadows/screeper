@@ -3,8 +3,10 @@ var map = new SquareMap();
 
 var MapInsights;
 module.exports = MapInsights = function (room) {
+    var level = this.level = 0;
     var population = this.population = 0;
     var growth = this.growth = null;
+    var work = this.work = [0];
     var region1 = this.region1 = { score: 0 };
     var region2 = this.region2 = { score: 0 };
     var center = this.center = { score: 0 };
@@ -17,7 +19,6 @@ module.exports = MapInsights = function (room) {
     var zone3 = this.zone3 = { score: 0 };
     var zone4 = this.zone4 = { score: 0 };
 
-    // 1250
     const SOURCES_SCORE = 590;
     const MINERALS_SCORE = 440;
     const STRUCTURES_SCORE = 0;
@@ -70,4 +71,10 @@ module.exports = MapInsights = function (room) {
     score(room, map.zone2, zone2);
     score(room, map.zone3, zone3);
     score(room, map.zone4, zone4);
+
+    var sources = room.find(FIND_SOURCES), i, source;
+    for (i in sources) {
+        source = sources[i];
+        work[0] += source.getCapacity();
+    }
 };

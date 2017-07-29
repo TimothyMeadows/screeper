@@ -11,6 +11,11 @@
     return size;
 };
 
+Room.prototype.sources = function () {
+    var room = this;
+    return _.size(room.find(FIND_SOURCES));
+};
+
 Room.prototype.sites = function () {
     var room = this;
     return _.size(room.find(FIND_CONSTRUCTION_SITES));
@@ -89,3 +94,16 @@ Room.prototype.errorCodeToString = function (code) {
 
     }
 };
+
+Room.prototype.build = function (structureType, x, y) {
+    var room = this;
+    var pos = new RoomPosition(x, y, room.name);
+    var tile = Game.map.getTerrainAt(pos);
+
+    switch (tile) {
+        case "swamp":
+        case "plain":
+            pos.createConstructionSite(structureType);
+            break;
+    };
+}
