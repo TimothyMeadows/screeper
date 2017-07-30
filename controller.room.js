@@ -57,6 +57,9 @@ var wallOffZones = function (room) {
 var RoomController, levels = {};
 module.exports = RoomController = {
     gain: function (room) {
+        if (!room.controller)
+            return;
+        
         room.memory.map = new MapInsight(room);
     },
     loss: function (name) {
