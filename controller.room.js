@@ -40,8 +40,8 @@ var road = function (room, top, left, bottom, right) {
 var crossRoad = function (room) {
     var map = new SquareMap();
 
-    road(room, map.zone1.bottom, map.zone1.left - 1, map.zone2.bottom, map.zone2.right - 1);
-    road(room, map.zone1.top - 1, map.zone1.right, map.zone3.bottom - 1, map.zone3.right);
+    road(room, map.zone1.bottom, map.zone1.left + 1, map.zone2.bottom, map.zone2.right - 1);
+    road(room, map.zone1.top + 1, map.zone1.right, map.zone3.bottom - 1, map.zone3.right);
 };
 
 var wallOffZones = function (room) {
@@ -99,8 +99,10 @@ module.exports = RoomController = {
                     builders = (room.memory.map.population - 3) - miners;
                     room.memory.map.growth = { caste: [7, 2, 0], specialization: [[miners, 1, builders], [2, 0, 0], [0, 0, 0]] };
 
-                    // update roads
-                    wallOffZones(room);
+                    // TODO: Create pathed roads.
+                    global.setTickout(function () {
+                        wallOffZones(room);
+                    }, 1);
                     break;
                 case 4:
                 case 5:
