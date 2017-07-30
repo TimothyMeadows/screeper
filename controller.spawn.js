@@ -4,7 +4,7 @@ var calculateTraining = function (name, spec) {
     var base, focus;
     switch (name) {
         case "warrior":
-            base = [ATTACK, MOVE, MOVE, TOUGH, TOUGH, CARRY, CARRY];
+            base = [RANGED_ATTACK, MOVE, MOVE, TOUGH, TOUGH];
             switch (spec) {
                 case "purifier":
                     focus = [RANGED_ATTACK, MOVE];

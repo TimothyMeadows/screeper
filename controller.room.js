@@ -82,8 +82,8 @@ module.exports = RoomController = {
                     }
 
                     room.memory.map.population = 6;
-                    builders = (room.memory.map.population - 1) - miners;
-                    room.memory.map.growth = { caste: [5, 1, 0], specialization: [[miners, 1, builders], [1, 0, 0], [0, 0, 0]] };
+                    builders = (room.memory.map.population - 2) - miners;
+                    room.memory.map.growth = { caste: [4, 1, 1], specialization: [[miners, 1, builders], [1, 0, 0], [1, 0, 0]] };
 
                     global.setTickout(function () {
                         crossRoad(room);
@@ -96,8 +96,8 @@ module.exports = RoomController = {
                     }
 
                     room.memory.map.population = 9;
-                    builders = (room.memory.map.population - 3) - miners;
-                    room.memory.map.growth = { caste: [7, 2, 0], specialization: [[miners, 1, builders], [2, 0, 0], [0, 0, 0]] };
+                    builders = (room.memory.map.population - 4) - miners;
+                    room.memory.map.growth = { caste: [6, 2, 1], specialization: [[miners, 1, builders], [2, 0, 0], [1, 0, 0]] };
 
                     // TODO: Create pathed roads.
                     global.setTickout(function () {
@@ -111,13 +111,13 @@ module.exports = RoomController = {
                     }
 
                     room.memory.map.population = 12;
-                    builders = (room.memory.map.population - 5) - miners;
-                    room.memory.map.growth = { caste: [9, 3, 0], specialization: [[miners, 2, builders], [3, 0, 0], [0, 0, 0]] };
+                    builders = (room.memory.map.population - 7) - miners;
+                    room.memory.map.growth = { caste: [7, 3, 2], specialization: [[miners, 2, builders], [2, 1, 0], [2, 0, 0]] };
                     break;
                 default:
                     room.memory.map.population = 15;
-                    builders = (room.memory.map.population - 5) - miners;
-                    room.memory.map.growth = { caste: [9, 3, 3], specialization: [[miners, 2, builders], [3, 0, 0], [1, 1, 1]] };
+                    builders = (room.memory.map.population - 9) - miners;
+                    room.memory.map.growth = { caste: [8, 4, 3], specialization: [[miners, 2, builders], [3, 1, 0], [3, 0, 0]] };
                     break;
             }
         }

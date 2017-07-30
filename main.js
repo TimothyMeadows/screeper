@@ -3,6 +3,7 @@ require("extention.room");
 require("extention.spawn");
 require("extention.source");
 require("extention.creep");
+require("extention.position");
 
 var Screeper = require("screeper");
 var StructureModel = require("model.structure");
