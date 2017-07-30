@@ -53,7 +53,6 @@ var wallOffZones = function (room) {
     wall(room, map.zone2.top, map.zone2.right, map.zone4.bottom, map.zone4.right, [[36, 23], [36, 24], [36, 25]]);
 };
 
-
 var RoomController, levels = {};
 module.exports = RoomController = {
     gain: function (room) {
@@ -85,7 +84,7 @@ module.exports = RoomController = {
                     builders = (room.memory.map.population - 2) - miners;
                     room.memory.map.growth = { caste: [4, 1, 1], specialization: [[miners, 1, builders], [1, 0, 0], [1, 0, 0]] };
 
-                    global.setTickout(function () {
+                    global.wait(function () {
                         crossRoad(room);
                     }, 1);
                     break;
@@ -100,7 +99,7 @@ module.exports = RoomController = {
                     room.memory.map.growth = { caste: [6, 2, 1], specialization: [[miners, 1, builders], [2, 0, 0], [1, 0, 0]] };
 
                     // TODO: Create pathed roads.
-                    global.setTickout(function () {
+                    global.wait(function () {
                         wallOffZones(room);
                     }, 1);
                     break;

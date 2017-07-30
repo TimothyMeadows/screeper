@@ -9,16 +9,20 @@ global.random = function() {
     return hex.replace(".", "x");
 }
 
-global.setTickout = function(callback, timeout) {
+global.wait = function(callback, timeout) {
     var uid = global.random();
-    if (!global._tick) global._tick = {};
-
-    global._tick[uid] = { start: Game.time, timeout: timeout, callback: callback };
+    global._timer[uid] = { start: Game.time, timeout: timeout, callback: callback, clear: true };
     return uid;
 }
 
-global.clearTickout = function(id) {
-    if (global._tick && global._tick[id]) delete global._tick[id];
+global.timer = function(callback, timeout) {
+    var uid = global.random();
+    global._timer[uid] = { start: Game.time, timeout: timeout, callback: callback, clear: false };
+    return uid;
 }
 
-if (!global._tick) global._tick = {};
+global.clear = function(id) {
+    if (global._timer && global._timer[id]) delete global._timer[id];
+}
+
+if (!global._timer) global._timer = {};

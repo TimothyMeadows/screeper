@@ -75,12 +75,15 @@ module.exports.loop = function () {
             }
         }
 
-        if (Memory._tick) {
-            for (name in global._tick) {
-                var tickout = global._tick[name];
+        if (global._timer) {
+            for (name in global._timer) {
+                var tickout = global._timer[name];
                 if ((Game.time - tickout.start) >= tickout.timeout) {
                     tickout.callback();
-                    delete global._tick[name];
+                    if (tickout.clear)
+                        delete global._timer[name];
+                    else
+                        tickout.start = Game.time;
                 }
             }
         }
