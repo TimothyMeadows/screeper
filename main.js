@@ -80,10 +80,11 @@ module.exports.loop = function () {
                 var tickout = global._timer[name];
                 if ((Game.time - tickout.start) >= tickout.timeout) {
                     tickout.callback();
-                    if (tickout.clear)
+                    if (tickout.clear && tickout.clear === true) {
                         delete global._timer[name];
-                    else
+                    }  else {
                         tickout.start = Game.time;
+                    }
                 }
             }
         }
