@@ -74,6 +74,16 @@ module.exports.loop = function () {
             }
         }
 
+        if (Memory._tick) {
+            for (name in global._tick) {
+                var tickout = global._tick[name];
+                if ((Game.time - tickout.start) >= tickout.timeout) {
+                    tickout.callback();
+                    delete global._tick[name];
+                }
+            }
+        }
+
         // Tick room
         if (Screeper.tick) Screeper.tick(room);
     }

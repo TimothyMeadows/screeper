@@ -1,5 +1,6 @@
 var MapInsight = require("insight.map");
 var SpawnController = require("controller.spawn");
+var SquareMap = require("model.map.square");
 
 var wall = function (room, top, left, bottom, right, gate) {
     var tiles = room.lookAtArea(top, left, bottom, right, true);
@@ -24,8 +25,26 @@ var wall = function (room, top, left, bottom, right, gate) {
     }
 };
 
+var road = function (room, top, left, bottom, right) {
+    var tiles = room.lookAtArea(top, left, bottom, right, true);
+
+    var i;
+    for (i = 0; i <= tiles.length - 1; i++) {
+        var tile = tiles[i];
+        if (tile.type === "terrain") {
+            room.build(STRUCTURE_ROAD, tile.x, tile.y);
+        }
+    }
+};
+
+var crossRoad = function (room) {
+    var map = new SquareMap();
+
+    road(room, map.zone1.bottom, map.zone1.left - 1, map.zone2.bottom, map.zone2.right - 1);
+    road(room, map.zone1.top - 1, map.zone1.right, map.zone3.bottom - 1, map.zone3.right);
+};
+
 var wallOffZones = function (room) {
-    var SquareMap = require("model.map.square");
     var map = new SquareMap();
 
     wall(room, map.zone1.top, map.zone1.left, map.zone2.top, map.zone2.right, [[23, 12], [24, 12], [25, 12]]);
@@ -63,7 +82,9 @@ module.exports = RoomController = {
                     builders = (room.memory.map.population - 1) - miners;
                     room.memory.map.growth = { caste: [5, 1, 0], specialization: [[miners, 1, builders], [1, 0, 0], [0, 0, 0]] };
 
-                    // create roads
+                    global.setTickout(function () {
+                        crossRoad(room);
+                    }, 1);
                     break;
                 case 2:
                 case 3:
