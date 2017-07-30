@@ -68,7 +68,7 @@ module.exports.loop = function () {
             if (!creep.room || creep.room.name != room.name || creep.spawning || !creep.my)
                 continue;
 
-            if (room.memory.creeps[creep.name].id == -1) {
+            if (room.memory.creeps[creep.name] && room.memory.creeps[creep.name].id == -1) {
                 room.memory.creeps[creep.name].id = creep.id;
                 if (Screeper.creep) Screeper.creep(room, room.memory.creeps[creep.name], false);
             }
