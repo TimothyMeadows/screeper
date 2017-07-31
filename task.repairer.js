@@ -10,6 +10,9 @@ var aquire = function (pointer, creep) {
     if (!structure)
         return;
 
+    if (creep.network().working(structure.id) > 1)
+        return;
+    
     pointer.task.target = structure.id;
     creep.room.log(`${creep.name} has been assgined repair, target: ${pointer.task.target}, workers: ${creep.network().working(pointer.task.target)}/1`);
 };

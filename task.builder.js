@@ -6,7 +6,7 @@ var aquire = function (pointer, creep) {
     
     var structure = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
         filter: function (s) {
-            return creep.network().working(s.id) < 2
+            return creep.network().working(s.id) < 1
         }
     });
 
