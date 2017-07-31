@@ -7,6 +7,7 @@ module.exports = MapInsights = function (room) {
     var population = this.population = 0;
     var growth = this.growth = null;
     var work = this.work = [0];
+    var check = this.check = [];
     var region1 = this.region1 = { score: 0 };
     var region2 = this.region2 = { score: 0 };
     var center = this.center = { score: 0 };
