@@ -50,7 +50,7 @@ module.exports = CreepController = {
                                     }
                                 }
                             } else {
-                                if (creep.carry.energy < creep.carryCapacity) {
+                                if (creep.carry.energy === 0) {
                                     if (room.population("religious") === 0) {
                                         creep.change("energy-miner", true);
                                     } else {

@@ -3,16 +3,12 @@ var aquire = function (pointer, creep) {
         filter: function (s) {
             return (s.structureType === "rampart" && s.hits < 6000)
                 || (s.structureType === "road" && s.hits < 2000)
-                && (creep.network().working(s.id) + 1 < 1)
+                && (creep.network().working(s.id) < 1)
         }
     });
 
     if (!structure)
         return;
-
-    if ((creep.network().working(structure.id) > 1)) {
-        return;
-    }
 
     pointer.task.target = structure.id;
     creep.room.log(`${creep.name} has been assgined priority repair, target: ${pointer.task.target}, type: ${structure.structureType}, workers: ${creep.network().working(pointer.task.target)}/1`);

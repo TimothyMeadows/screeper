@@ -3,7 +3,7 @@ var aquire = function (pointer, creep) {
         filter: function (s) {
             return ((s.structureType === "constructedWall" || s.structureType === "rampart") && s.hits < 6000)
                 || (s.structureType === "road" && s.hits < 2000)
-                && (creep.network().working(s.id) + 1 < 1)
+                && (creep.network().working(s.id) < 1)
         }
     });
 

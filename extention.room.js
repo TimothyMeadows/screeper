@@ -2,8 +2,8 @@
     var room = this;
     var size = _.size(room.find(FIND_STRUCTURES, {
         filter: function (s) {
-            return (s.structureType === "rampart" && s.hits < 10000 )
-                || (s.structureType === "road" && s.hits < 3000)
+            return (s.structureType === "rampart" && s.hits < 6000 )
+                || (s.structureType === "road" && s.hits < 2000)
         }
     }));
 
@@ -14,8 +14,8 @@ Room.prototype.repairs = function () {
     var room = this;
     var size = _.size(room.find(FIND_STRUCTURES, {
         filter: function (s) {
-            return ((s.structureType === "constructedWall" || s.structureType === "rampart") && s.hits < 10000 )
-                || (s.structureType === "road" && s.hits < 3000)
+            return ((s.structureType === "constructedWall" || s.structureType === "rampart") && s.hits < 6000 )
+                || (s.structureType === "road" && s.hits < 2000)
         }
     }));
 
