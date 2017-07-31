@@ -84,9 +84,7 @@ module.exports = RoomController = {
                     builders = (room.memory.map.population - 2) - miners;
                     room.memory.map.growth = { caste: [4, 1, 1], specialization: [[miners, 1, builders], [1, 0, 0], [1, 0, 0]] };
 
-                    global.timer(function () {
-                        crossRoad(room);
-                    }, 20);
+                    crossRoad(room);
                     break;
                 case 2:
                 case 3:
@@ -99,12 +97,10 @@ module.exports = RoomController = {
                     room.memory.map.growth = { caste: [6, 2, 1], specialization: [[miners, 1, builders], [2, 0, 0], [1, 0, 0]] };
 
                     //if (room.memory.map.level === 3) {
-                        // TODO: Create pathed roads.
+                    // TODO: Create pathed roads.
                     //}
 
-                    global.timer(function () {
-                        wallOffZones(room);
-                    }, 20);
+                    wallOffZones(room);
                     break;
                 case 4:
                 case 5:
