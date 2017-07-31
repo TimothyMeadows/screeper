@@ -20,7 +20,6 @@ module.exports = CreepController = {
                             break;
                         case "builder":
                             if (room.priorityRepairs() === 0) {
-                                console.log("caw 0");
                                 if (room.sites() === 0) {
                                     if (creep.carry.energy < creep.carryCapacity) {
                                         if (room.population("religious") === 0) {
@@ -51,7 +50,6 @@ module.exports = CreepController = {
                                     }
                                 }
                             } else {
-                                console.log("caw 1");
                                 if (creep.carry.energy < creep.carryCapacity) {
                                     if (room.population("religious") === 0) {
                                         creep.change("energy-miner", true);
