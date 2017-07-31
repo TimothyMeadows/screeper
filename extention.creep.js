@@ -12,11 +12,6 @@ Creep.prototype.change = function (name, keepMemory) {
     creep.room.memory.creeps[creep.name].task.name = name;
 };
 
-Creep.prototype.next = function (name) {
-    var creep = this;
-    creep.room.memory.creeps[creep.name].task.next = name;
-};
-
 Creep.prototype.traverse = function (target) {
     // TODO: This should be deciding if it should use pathing or moveTo based on distance to move
     var creep = this;

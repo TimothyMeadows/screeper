@@ -58,7 +58,7 @@ module.exports = RoomController = {
     gain: function (room) {
         if (!room.controller)
             return;
-        
+
         room.memory.map = new MapInsight(room);
     },
     loss: function (name) {
@@ -76,17 +76,17 @@ module.exports = RoomController = {
             switch (room.memory.map.level) {
                 case 0:
                 case 1:
-                    if (miners > 3) {
-                        miners = 3;
+                    if (miners > 2) {
+                        miners = 2;
                     }
 
                     room.memory.map.population = 6;
                     builders = (room.memory.map.population - 2) - miners;
                     room.memory.map.growth = { caste: [4, 1, 1], specialization: [[miners, 1, builders], [1, 0, 0], [1, 0, 0]] };
 
-                    global.wait(function () {
+                    global.timer(function () {
                         crossRoad(room);
-                    }, 1);
+                    }, 20);
                     break;
                 case 2:
                 case 3:
@@ -98,10 +98,13 @@ module.exports = RoomController = {
                     builders = (room.memory.map.population - 4) - miners;
                     room.memory.map.growth = { caste: [6, 2, 1], specialization: [[miners, 1, builders], [2, 0, 0], [1, 0, 0]] };
 
-                    // TODO: Create pathed roads.
-                    global.wait(function () {
+                    //if (room.memory.map.level === 3) {
+                        // TODO: Create pathed roads.
+                    //}
+
+                    global.timer(function () {
                         wallOffZones(room);
-                    }, 1);
+                    }, 20);
                     break;
                 case 4:
                 case 5:
