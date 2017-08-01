@@ -1,7 +1,7 @@
 {
   "name": "screeper",
   "version": "1.0.0",
-  "description": "A bot for screepers",
+  "description": "A bot for screeps",
   "main": "main.js",
   "dependencies": {
   },
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://blackfeatherinnovation.visualstudio.com/defaultcollection/_git/Screeper"
+    "url": "https://github.com/TimothyMeadows/screeper"
   },
   "author": "Timothy D Meadows II",
   "license": "MIT"

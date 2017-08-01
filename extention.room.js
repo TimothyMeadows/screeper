@@ -27,6 +27,17 @@ Room.prototype.sources = function () {
     return _.size(room.find(FIND_SOURCES));
 };
 
+Room.prototype.prioritySites = function () {
+    var room = this;
+    var size = _.size(room.find(FIND_CONSTRUCTION_SITES, {
+        filter: function (s) {
+            return s.structureType === STRUCTURE_EXTENSION
+        }
+    }));
+
+    return size;
+};
+
 Room.prototype.sites = function () {
     var room = this;
     return _.size(room.find(FIND_CONSTRUCTION_SITES));
