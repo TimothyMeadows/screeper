@@ -4,7 +4,7 @@ module.exports = CreepController = {
         if (pointer.task.idle === true) {
             var creep = Game.getObjectById(pointer.id);
             if (!creep)
-                return; // not ready
+                return;
 
             switch (pointer.caste.name) {
                 case "worker":

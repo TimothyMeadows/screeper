@@ -85,7 +85,7 @@ module.exports = RoomController = {
             return;
 
         room.memory.map = new MapInsight(room);
-        room.memory.map.check = [{ type: "cross-road", start: Game.time, timeout: 20 }, { type: "wall-off-zones", start: Game.time, timeout: 15 }, { type: "extentions", start: Game.time, timeout: 25 }];
+        room.memory.map.check = [{ type: "cross-road", start: Game.time, timeout: 20 }, { type: "wall-off-zones", start: Game.time, timeout: 25 }, { type: "extentions", start: Game.time, timeout: 15 }];
     },
     loss: function (name) {
         // :(
@@ -142,10 +142,6 @@ module.exports = RoomController = {
                     room.memory.map.population = 9;
                     builders = (room.memory.map.population - 4) - miners;
                     room.memory.map.growth = { caste: [6, 2, 1], specialization: [[miners, 1, builders], [2, 0, 0], [1, 0, 0]] };
-
-                    //if (room.memory.map.level === 3) {
-                    // TODO: Create pathed roads.
-                    //}
                     break;
                 case 4:
                 case 5:
