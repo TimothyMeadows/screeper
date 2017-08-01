@@ -4,18 +4,34 @@ var aquire = function (pointer, creep) {
         return;
     }
 
-    var structure = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
+    var structure, structures = creep.room.find(FIND_CONSTRUCTION_SITES, {
         filter: function (s) {
             return s.structureType === STRUCTURE_EXTENSION
-                && creep.network().working(s.id) < 1
+                && s.progress > 0
+                && creep.network().working(s.id) < 3
         }
     });
+
+    if (_.size(structures) === 0) {
+        structure = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
+            filter: function (s) {
+                return s.structureType === STRUCTURE_EXTENSION
+                    && creep.network().working(s.id) < 3
+            }
+        });
+    } else {
+        structures = _.sortBy(structures, function (s) {
+            return s.progress;
+        }).reverse();
+
+        structure = structures[0];
+    }
 
     if (!structure)
         return;
 
     pointer.task.target = structure.id;
-    creep.room.log(`${creep.name} has been assgined priority build, target: ${pointer.task.target}, workers: ${creep.network().working(pointer.task.target)}/1`);
+    creep.room.log(`${creep.name} has been assgined priority build, target: ${pointer.task.target}, workers: ${creep.network().working(pointer.task.target)}/3, progress: ${structure.progress}`);
 };
 
 var build = function (pointer, creep, structure) {

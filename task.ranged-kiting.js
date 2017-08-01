@@ -1,10 +1,15 @@
 var aquire = function (pointer, creep) {
-    var hostile = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+    var hostile = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS, {
+        filter: function (c) {
+            return c.owner.username !== "Source Keeper";
+        }
+    });
+
     if (!hostile)
         return;
 
     pointer.task.target = hostile.id;
-    creep.room.log(`${creep.name} has been assgined ranged kiting, target: ${pointer.task.target}, owner: ${JSON.stringify(hostile.owner)}`);
+    creep.room.log(`${creep.name} has been assgined ranged kiting, target: ${pointer.task.target}, owner: ${c.owner.username}`);
 };
 
 var rangedAttack = function (pointer, creep, target) {
