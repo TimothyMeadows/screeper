@@ -12,4 +12,12 @@ module.exports = function() {
     this.zone2 = { x: 30,  y: 18, top: 12, left: 24, bottom: 24, right: 36 };
     this.zone3 = { x: 18,  y: 30, top: 24, left: 12, bottom: 36, right: 24 };
     this.zone4 = { x: 30,  y: 30, top: 24, left: 24, bottom: 36, right: 36 };
+    this.extention1 = { x: -1, y: -1, top: 23, left: 16, bottom: 23, right: 23 };
+    this.extention2 = { x: -1, y: -1, top: 16, left: 23, bottom: 23, right: 23 };
+    this.extention3 = { x: -1, y: -1, top: 23, left: 25, bottom: 23, right: 32 };
+    this.extention4 = { x: -1, y: -1, top: 16, left: 25, bottom: 23, right: 25 };
+    this.extention5 = { x: -1, y: -1, top: 25, left: 16, bottom: 25, right: 23 };
+    this.extention6 = { x: -1, y: -1, top: 25, left: 23, bottom: 32, right: 23 };
+    this.extention7 = { x: -1, y: -1, top: 25, left: 25, bottom: 25, right: 32 };
+    this.extention8 = { x: -1, y: -1, top: 25, left: 25, bottom: 32, right: 25 };
 };

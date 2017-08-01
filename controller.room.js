@@ -37,6 +37,31 @@ var road = function (room, top, left, bottom, right) {
     }
 };
 
+var extention = function (room, top, left, bottom, right) {
+    var tiles = room.lookAtArea(top, left, bottom, right, true);
+
+    var i;
+    for (i = 0; i <= tiles.length - 1; i++) {
+        var tile = tiles[i];
+        if (tile.type === "terrain") {
+            room.build(STRUCTURE_EXTENSION, tile.x, tile.y);
+        }
+    }
+};
+
+var extentions = function (room) {
+    var map = new SquareMap();
+
+    extention(room, map.extention1.bottom, map.extention1.left, map.extention1.bottom, map.extention1.right);
+    extention(room, map.extention2.bottom, map.extention2.left, map.extention2.bottom, map.extention2.right);
+    extention(room, map.extention3.bottom, map.extention3.left, map.extention3.bottom, map.extention3.right);
+    extention(room, map.extention4.bottom, map.extention4.left, map.extention4.bottom, map.extention4.right);
+    extention(room, map.extention5.bottom, map.extention5.left, map.extention5.bottom, map.extention5.right);
+    extention(room, map.extention6.bottom, map.extention6.left, map.extention6.bottom, map.extention6.right);
+    extention(room, map.extention7.bottom, map.extention7.left, map.extention7.bottom, map.extention7.right);
+    extention(room, map.extention8.bottom, map.extention8.left, map.extention8.bottom, map.extention8.right);
+};
+
 var crossRoad = function (room) {
     var map = new SquareMap();
 
@@ -60,7 +85,7 @@ module.exports = RoomController = {
             return;
 
         room.memory.map = new MapInsight(room);
-        room.memory.map.check = [{ type: "cross-road", start: Game.time, timeout: 20 }, { type: "wall-off-zones", start: Game.time, timeout: 20 }];
+        room.memory.map.check = [{ type: "cross-road", start: Game.time, timeout: 20 }, { type: "wall-off-zones", start: Game.time, timeout: 15 }, { type: "extentions", start: Game.time, timeout: 25 }];
     },
     loss: function (name) {
         // :(
@@ -81,6 +106,10 @@ module.exports = RoomController = {
                     case "wall-off-zones":
                         if (room.controller.level >= 2)
                             wallOffZones(room);
+                        break;
+                    case "extentions":
+                        if (room.controller.level >= 2)
+                            extentions(room);
                         break;
                 }
 
