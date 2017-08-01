@@ -55,29 +55,29 @@ var calculateExperiance = function (room, name, spec) {
     var training = calculateTraining(name, spec);
     var i, cost = 300, parts = [];
 
-    for (i in training.base) {
+    for (i in training.base)
         parts.push(training.base[i]);
-    }
 
     var level = 0, upgradeCost = 0;
-    while (cost < room.energyAvailable) {
+    //while (cost < room.energyAvailable) {
         if (room.energyAvailable > 300) {
-            for (i in training.focus) {
+            for (i in training.focus)
                 upgradeCost += BODYPART_COST[training.focus[i]];
-            }
 
+            console.log("left = " + upgradeCost)
+            console.log("avail = " + room.energyAvailable)
             if (cost + upgradeCost <= room.energyAvailable) {
                 cost += upgradeCost;
 
-                for (i in training.focus) {
+                for (i in training.focus)
                     parts.push(training.focus[i]);
-                }
 
                 level++;
+                //break;
             } else {
-                break;
+                // ???
             }
-        }
+        //}
     }
 
     return { parts: parts, level: level }
