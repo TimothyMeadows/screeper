@@ -66,7 +66,7 @@ var calculateExperiance = function (room, name, spec) {
         upgradeCost += BODYPART_COST[training.focus[i]];
 
     if (upgradeCost > left)
-        return { parts: parts, level: level };
+        return { parts: parts, level: 1 };
 
     var p, upgrades = Math.floor(left / upgradeCost);
     for (i = 0; i <= upgrades - 1; i++) {
@@ -76,7 +76,7 @@ var calculateExperiance = function (room, name, spec) {
         level++;
     }
 
-    return { parts: parts, level: level }
+    return { parts: parts, level: level++ }
 };
 
 var SpawnController;
