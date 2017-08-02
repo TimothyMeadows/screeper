@@ -85,7 +85,7 @@ module.exports = RoomController = {
             return;
 
         room.memory.map = new MapInsight(room);
-        room.memory.map.check = [/*{ type: "cross-road", start: Game.time, timeout: 20 },*/ { type: "wall-off-zones", start: Game.time, timeout: 25 }, { type: "extentions", start: Game.time, timeout: 15 }];
+        room.memory.map.check = [{ type: "extentions", start: Game.time, timeout: 10 }, { type: "cross-road", start: Game.time, timeout: 20 }, { type: "wall-off-zones", start: Game.time, timeout: 25 }];
     },
     loss: function (name) {
         // :(
@@ -100,12 +100,12 @@ module.exports = RoomController = {
             if ((Game.time - timer.start) >= timer.timeout) {
                 switch (timer.type) {
                     case "cross-road":
-                        //if (room.controller.level >= 1)
-                            //crossRoad(room);
+                        if (room.controller.level >= 3)
+                            crossRoad(room);
                         break;
                     case "wall-off-zones":
-                        //if (room.controller.level >= 2)
-                            //wallOffZones(room);
+                        if (room.controller.level >= 2)
+                            wallOffZones(room);
                         break;
                     case "extentions":
                         if (room.controller.level >= 2)
