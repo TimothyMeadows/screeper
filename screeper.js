@@ -1,5 +1,6 @@
 var RoomController = require("controller.room");
 var CreepController = require("controller.creep");
+var StructureTower = require("structure.tower");
 
 var Screeper;
 module.exports = Screeper = {
@@ -16,6 +17,12 @@ module.exports = Screeper = {
             room.log(`structure ${structure.id}:${structure.type} was destroyed!`);
         else {
             room.log(`structure ${structure.id}:${structure.type} was created!`);
+
+            switch (structure.type) {
+                case STRUCTURE_TOWER:
+                    StructureTower.tick(room, structure);
+                    break;
+            }
         }
     },
     // Triggers on creation / destruction based on disposed
