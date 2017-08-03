@@ -1,5 +1,5 @@
-var StructureTower;
-module.exports = StructureTower = {
+var TowerStructure;
+module.exports = TowerStructure = {
     tick: function (room, pointer) {
         var tower = Game.getObjectById(pointer.id);
         var hostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
@@ -21,19 +21,15 @@ module.exports = StructureTower = {
                 var repairable = repairables[name];
                 switch (repairable.structureType) {
                     case "constructedWall":
-                        if (repairable.hits > 14999)
+                        if (repairable.hits > 5000)
                             continue;
                         break;
                     case "rampart":
-                        if (repairable.hits > 14999)
+                        if (repairable.hits > 1000)
                             continue;
                         break;
                     case "road":
-                        if (repairable.hits > 3999)
-                            continue;
-                        break;
-                    case "container":
-                        if (repairable.hits > 239000)
+                        if (repairable.hits > 1000)
                             continue;
                         break;
                 }
