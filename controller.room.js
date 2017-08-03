@@ -49,6 +49,28 @@ var extention = function (room, top, left, bottom, right) {
     }
 };
 
+var tower = function (room, tower) {
+    var i;
+    for (i = 0; i <= tower.length - 1; i++) {
+        var x = tower[i].x, y = tower[i].y;
+        var pos = new RoomPosition(x, y, room.name);
+        var terrain = pos.look();
+
+        if (terrain.type === "terrain" && terrain.terrain === "swamp" || terrain.terrain === "plain") {
+            room.build(STRUCTURE_TOWER, x, y);
+        }
+    }
+};
+
+var towers = function (room) {
+    var map = new SquareMap();
+
+    tower(room, map.tower1);
+    tower(room, map.tower2);
+    tower(room, map.tower3);
+    tower(room, map.tower4);
+};
+
 var extentions = function (room) {
     var map = new SquareMap();
 
@@ -85,7 +107,7 @@ module.exports = RoomController = {
             return;
 
         room.memory.map = new MapInsight(room);
-        room.memory.map.check = [{ type: "extentions", start: Game.time, timeout: 10 }, { type: "cross-road", start: Game.time, timeout: 20 }, { type: "wall-off-zones", start: Game.time, timeout: 25 }];
+        room.memory.map.check = [{ type: "extentions", start: Game.time, timeout: 10 }, { type: "towers", start: Game.time, timeout: 15 }, { type: "cross-road", start: Game.time, timeout: 20 }, { type: "wall-off-zones", start: Game.time, timeout: 25 }];
     },
     loss: function (name) {
         // :(
@@ -110,6 +132,10 @@ module.exports = RoomController = {
                     case "extentions":
                         if (room.controller.level >= 2)
                             extentions(room);
+                        break;
+                    case "towers":
+                        if (room.controller.level >= 3)
+                            towers(room);
                         break;
                 }
 
