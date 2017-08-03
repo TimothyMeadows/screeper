@@ -1,4 +1,9 @@
-﻿Room.prototype.priorityRepairs = function () {
+﻿Room.prototype.hostiles = function () {
+    var room = this;
+    return _.size(room.find(FIND_HOSTILE_CREEPS));
+};
+
+Room.prototype.priorityRepairs = function () {
     var room = this;
     var size = _.size(room.find(FIND_STRUCTURES, {
         filter: function (s) {

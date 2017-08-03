@@ -1,10 +1,20 @@
 var TowerStructure;
 module.exports = TowerStructure = {
     tick: function (room, pointer) {
+        if (room.hostiles() === 0) {
+            return;
+        }
+
         var tower = Game.getObjectById(pointer.id);
         var hostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
         if (hostile) {
-            tower.room.log(`tower is attacking creep owned by ${hostile.owner.username}, target: ${hostile.id}, tower: ${tower.id}`);
+            if (pointer.memory.target && pointer.memory.target === hostile.id) {
+                tower.attack(hostile);
+                return;
+            }
+
+            pointer.memory.target = hostile.id;
+            tower.room.log(`tower is attacking, owner: ${hostile.owner.username}, target: ${hostile.id}, tower: ${tower.id}`);
             tower.attack(hostile);
             return;
         }
