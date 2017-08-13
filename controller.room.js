@@ -56,7 +56,7 @@ var tower = function (room, tower) {
         var pos = new RoomPosition(x, y, room.name);
         var terrain = pos.look();
 
-        if (terrain.type === "terrain" && terrain.terrain === "swamp" || terrain.terrain === "plain") {
+        if (terrain.type === "terrain" && (terrain.terrain === "swamp" || terrain.terrain === "plain")) {
             room.build(STRUCTURE_TOWER, x, y);
         }
     }
