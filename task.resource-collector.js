@@ -58,6 +58,8 @@ module.exports = TaskEnergyCollector = {
                 aquire(pointer, creep);
                 if (pointer.task.target === null)
                     creep.change("idle", true);
+                else
+                    pickup(pointer, creep, target);
             }
         } else {
             creep.change("idle", true);

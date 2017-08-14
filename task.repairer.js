@@ -61,6 +61,8 @@ module.exports = TaskRepairer = {
             aquire(pointer, creep);
             if (pointer.task.target === null)
                 creep.change("idle", true);
+            else
+                repair(pointer, creep, target);
         }
     }
 };

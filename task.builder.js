@@ -3,7 +3,7 @@ var aquire = function (pointer, creep) {
         creep.change("idle", true);
         return;
     }
-    
+
     var structure = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
         filter: function (s) {
             return creep.network().working(s.id) < 1
@@ -50,6 +50,8 @@ module.exports = TaskBuilder = {
             aquire(pointer, creep);
             if (pointer.task.target === null)
                 creep.change("idle", true);
+            else
+                build(pointer, creep, target);
         }
     }
 };

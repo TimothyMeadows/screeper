@@ -48,6 +48,8 @@ module.exports = TaskEnergyDistributor = {
             aquire(pointer, creep);
             if (pointer.task.target === null)
                 creep.change("idle", true);
+            else
+                transfer(pointer, creep, target);
         }
     }
 };

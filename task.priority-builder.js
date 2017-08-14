@@ -67,6 +67,8 @@ module.exports = TaskPriorityBuilder = {
             aquire(pointer, creep);
             if (pointer.task.target === null)
                 creep.change("idle", true);
+            else
+                build(pointer, creep, target);
         }
     }
 };

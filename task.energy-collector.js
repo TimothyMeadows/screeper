@@ -76,7 +76,10 @@ module.exports = TaskEnergyCollector = {
                     creep.change("energy-miner", true);
                 else
                     creep.change("resource-collector", true);
-            }
+
+                return;
+            } else
+                transfer(pointer, creep, target);
         }
     }
 };

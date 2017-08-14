@@ -54,6 +54,8 @@ module.exports = TaskRangedKiting = {
             aquire(pointer, creep);
             if (pointer.task.target === null)
                 creep.change("idle", true);
+            else
+                rangedAttack(pointer, creep, target);
         }
     }
 };

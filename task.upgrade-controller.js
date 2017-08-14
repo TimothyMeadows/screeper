@@ -38,6 +38,8 @@ module.exports = TaskUpgradeController = {
             aquire(pointer, creep);
             if (pointer.task.target === null)
                 creep.change("idle", true);
+            else
+                upgrade(pointer, creep, target);
         }
     }
 };
