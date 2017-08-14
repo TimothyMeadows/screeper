@@ -122,7 +122,7 @@ module.exports = RoomController = {
             if ((Game.time - timer.start) >= timer.timeout) {
                 switch (timer.type) {
                     case "cross-road":
-                        if (room.controller.level >= 3)
+                        if (room.controller.level >= 4)
                             crossRoad(room);
                         break;
                     case "wall-off-zones":
