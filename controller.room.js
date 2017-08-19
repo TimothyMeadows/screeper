@@ -155,30 +155,14 @@ module.exports = RoomController = {
                         miners = 2;
                     }
 
-                    room.memory.map.population = 6;
+                    room.memory.map.population = 9;
                     builders = (room.memory.map.population - 2) - miners;
-                    room.memory.map.growth = { caste: [4, 1, 1], specialization: [[miners, 1, builders], [1, 0, 0], [1, 0, 0]] };
+                    room.memory.map.growth = { caste: [4, 1, 1], specialization: [[miners, 1, builders], [2, 0, 0], [0, 0, 0]] };
                     break;
                 case 2:
                 case 3:
-                    if (miners > 3) {
-                        miners = 3;
-                    }
-
-                    room.memory.map.population = 9;
-                    builders = (room.memory.map.population - 4) - miners;
-                    room.memory.map.growth = { caste: [6, 2, 1], specialization: [[miners, 1, builders], [2, 0, 0], [1, 0, 0]] };
-                    break;
                 case 4:
                 case 5:
-                    if (miners > 4) {
-                        miners = 4;
-                    }
-
-                    room.memory.map.population = 12;
-                    builders = (room.memory.map.population - 7) - miners;
-                    room.memory.map.growth = { caste: [7, 3, 2], specialization: [[miners, 2, builders], [2, 1, 0], [2, 0, 0]] };
-                    break;
                 default:
                     if (miners > 5) {
                         miners = 5;
