@@ -20,7 +20,6 @@ var aquire = function (pointer, creep) {
 
     for (i in creeps) {
         var current = creeps[i];
-
         pointer.task.target = current.id;
         creep.room.log(`${creep.name} has been assgined collect resource, target: ${pointer.task.target}, workers: ${creep.network().working(pointer.task.target)}/1`);
         break;
