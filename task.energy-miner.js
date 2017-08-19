@@ -69,6 +69,10 @@ module.exports = TaskEnergyMiner = {
                 aquire(pointer, creep);
                 if (pointer.task.target === null)
                     creep.change("idle", true);
+                else {
+                    var target = Game.getObjectById(pointer.task.target);
+                    harvest(pointer, creep, target);
+                }
             }
         } else {
             creep.change("idle", true);

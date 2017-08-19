@@ -78,8 +78,10 @@ module.exports = TaskEnergyCollector = {
                     creep.change("resource-collector", true);
 
                 return;
-            } else
+            } else {
+                var target = Game.getObjectById(pointer.task.target);
                 transfer(pointer, creep, target);
+            }
         }
     }
 };

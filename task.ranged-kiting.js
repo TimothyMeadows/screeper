@@ -54,8 +54,10 @@ module.exports = TaskRangedKiting = {
             aquire(pointer, creep);
             if (pointer.task.target === null)
                 creep.change("idle", true);
-            else
+            else {
+                var target = Game.getObjectById(pointer.task.target);
                 rangedAttack(pointer, creep, target);
+            }
         }
     }
 };

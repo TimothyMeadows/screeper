@@ -107,7 +107,7 @@ module.exports = RoomController = {
             return;
 
         room.memory.map = new MapInsight(room);
-        room.memory.map.check = [{ type: "extentions", start: Game.time, timeout: 10 }, { type: "towers", start: Game.time, timeout: 15 }, { type: "cross-road", start: Game.time, timeout: 20 }, { type: "wall-off-zones", start: Game.time, timeout: 25 }];
+        room.memory.map.check = [{ type: "extentions", start: Game.time, timeout: 30 }, { type: "towers", start: Game.time, timeout: 55 }, { type: "cross-road", start: Game.time, timeout: 65 }, { type: "wall-off-zones", start: Game.time, timeout: 80 }];
     },
     loss: function (name) {
         // :(
