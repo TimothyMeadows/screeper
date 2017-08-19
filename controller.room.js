@@ -126,7 +126,7 @@ module.exports = RoomController = {
                             crossRoad(room);
                         break;
                     case "wall-off-zones":
-                        if (room.controller.level >= 2)
+                        if (room.controller.level >= 3)
                             wallOffZones(room);
                         break;
                     case "extentions":
