@@ -8,10 +8,8 @@ module.exports = Screeper = {
     creep: function (room, creep, disposed) {
         if (disposed) {
             room.log(`creep ${creep.id}:${creep.name} has died!`);
-            if (creep.caste.name === "warrior" && room.hostiles() > 0) {
-                if (room.controller.safeModeAvailable > 0)
-                    room.controller.activateSafeMode();
-            }
+            if (room.controller.safeModeAvailable > 0 && creep.caste.name === "warrior" && room.hostiles() > 0)
+                room.controller.activateSafeMode();
         }
         else
             room.log(`creep ${creep.id}:${creep.name} was born!`);
@@ -20,10 +18,8 @@ module.exports = Screeper = {
     structure: function (room, structure, disposed) {
         if (disposed) {
             room.log(`structure ${structure.id}:${structure.type} was destroyed!`);
-            if (room.hostiles() > 0) {
-                if (room.controller.safeModeAvailable > 0)
-                    room.controller.activateSafeMode();
-            }
+            if (room.controller.safeModeAvailable > 0 && room.hostiles() > 0)
+                room.controller.activateSafeMode();
         }
         else {
             room.log(`structure ${structure.id}:${structure.type} was created!`);
