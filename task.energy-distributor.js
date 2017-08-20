@@ -20,12 +20,18 @@ var transfer = function (pointer, creep, structure) {
             creep.traverse(structure);
             break;
         case ERR_FULL:
-            creep.change("idle", true);
+            if (creep.carry.energy === 0) {
+                creep.change("idle", true);
+            } else {
+                pointer.task.target = null;
+            }
             break;
         case ERR_NOT_ENOUGH_ENERGY:
         case OK:
             if (creep.carry.energy === 0) {
                 creep.change("idle", true);
+            } else {
+                pointer.task.target = null;
             }
             break;
     }
