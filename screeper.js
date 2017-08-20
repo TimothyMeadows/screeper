@@ -6,15 +6,25 @@ var Screeper;
 module.exports = Screeper = {
     // Triggers on creation / destruction based on disposed
     creep: function (room, creep, disposed) {
-        if (disposed)
+        if (disposed) {
             room.log(`creep ${creep.id}:${creep.name} has died!`);
+            if (creep.caste.name === "warrior" && room.hostiles() > 0) {
+                if (room.controller.safeModeAvailable > 0)
+                    room.controller.activateSafeMode();
+            }
+        }
         else
             room.log(`creep ${creep.id}:${creep.name} was born!`);
     },
     // Triggers on creation / destruction based on disposed
     structure: function (room, structure, disposed) {
-        if (disposed)
+        if (disposed) {
             room.log(`structure ${structure.id}:${structure.type} was destroyed!`);
+            if (room.hostiles() > 0) {
+                if (room.controller.safeModeAvailable > 0)
+                    room.controller.activateSafeMode();
+            }
+        }
         else {
             room.log(`structure ${structure.id}:${structure.type} was created!`);
         }
