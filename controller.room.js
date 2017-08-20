@@ -170,7 +170,7 @@ module.exports = RoomController = {
 
                     room.memory.map.population = 15;
                     builders = (room.memory.map.population - 9) - miners;
-                    room.memory.map.growth = { caste: [8, 4, 3], specialization: [[miners, 2, builders], [3, 1, 0], [3, 0, 0]] };
+                    room.memory.map.growth = { caste: [8, 4, 3], specialization: [[miners, 2, builders], [4, 0, 0], [3, 0, 0]] };
                     break;
             }
         }
