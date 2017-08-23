@@ -4,6 +4,7 @@ require("extention.spawn");
 require("extention.source");
 require("extention.creep");
 require("extention.position");
+require("extention.visual");
 
 var Screeper = require("screeper");
 var StructureModel = require("model.structure");

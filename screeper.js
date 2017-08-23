@@ -1,5 +1,6 @@
 var RoomController = require("controller.room");
 var CreepController = require("controller.creep");
+var VisualController = require("controller.visual");
 var TowerStructure = require("structure.tower");
 
 var Screeper;
@@ -60,5 +61,6 @@ module.exports = Screeper = {
             }
         }
 
+        VisualController.tick(room);
     }
 };
