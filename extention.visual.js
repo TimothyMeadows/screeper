@@ -1,7 +1,21 @@
-RoomVisual.prototype.drawStatus = function (pos, status) {
-    this.text(status, pos.x, pos.y - 0.5, {
-        font: 0.4
+RoomVisual.prototype.drawStatus = function (pos, status, color, offset) {
+    if (!offset)
+        offset = 0;
+
+    this.text(status, (pos.x - 0.3) + offset, pos.y - 0.5, {
+        font: 0.3,
+        color: color
     });
+};
+
+RoomVisual.prototype.drawStatuses = function (pos, statuses, color) {
+    var step = 0;
+    for (var i in statuses) {
+        var status = statuses[i]
+
+        this.drawStatus(pos, status, color, step);
+        step += 0.5;
+    } 
 };
 
 RoomVisual.prototype.drawText = function (pos, text, color) {
