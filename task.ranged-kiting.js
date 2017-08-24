@@ -9,7 +9,7 @@ var aquire = function (pointer, creep) {
         return;
 
     pointer.task.target = hostile.id;
-    creep.room.log(`${creep.name} has been assgined ranged kiting, target: ${pointer.task.target}, owner: ${c.owner.username}`);
+    creep.room.log(`${creep.name} has been assgined ranged kiting, target: ${pointer.task.target}, owner: ${creep.owner.username}`);
 };
 
 var rangedAttack = function (pointer, creep, target) {

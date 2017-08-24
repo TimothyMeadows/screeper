@@ -1,3 +1,5 @@
+var VisualController = require("controller.visual");
+
 Creep.prototype.change = function (name, keepMemory) {
     var creep = this;
     var pointer = creep.room.memory.creeps[creep.name];
@@ -22,6 +24,7 @@ Creep.prototype.traverse = function (target) {
     // TODO: This should be deciding if it should use pathing or moveTo based on distance to move
     var creep = this;
     creep.moveTo(target);
+    VisualController.tock(creep);
 };
 
 Creep.prototype.network = function () {

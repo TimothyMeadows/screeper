@@ -52,14 +52,14 @@ module.exports = CreepController = {
                                     }
                                 } else {
                                     if (creep.carry.energy < creep.carryCapacity) {
-                                            if (room.population("religious") === 0) {
-                                                creep.change("energy-miner", true);
-                                            } else {
-                                                creep.change("energy-collector", true);
-                                            }
+                                        if (room.population("religious") === 0) {
+                                            creep.change("energy-miner", true);
                                         } else {
-                                            creep.change("priority-builder", true);
+                                            creep.change("energy-collector", true);
                                         }
+                                    } else {
+                                        creep.change("priority-builder", true);
+                                    }
                                 }
                             } else {
                                 if (creep.carry.energy === 0) {
@@ -118,7 +118,7 @@ module.exports = CreepController = {
                 case "warrior":
                     switch (pointer.caste.specialization) {
                         case "purifier":
-                            creep.change("ranged-kiting", false);
+                            creep.change("ranged-kiting", true);
                             break;
                         case "guardian":
                             break;

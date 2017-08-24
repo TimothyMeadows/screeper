@@ -1,3 +1,9 @@
+RoomVisual.prototype.drawStatus = function (pos, status) {
+    this.text(status, pos.x, pos.y - 0.5, {
+        font: 0.4
+    });
+};
+
 RoomVisual.prototype.drawText = function (pos, text, color) {
     this.text(text, pos.x, pos.y + 0.2, {
         color: color,
