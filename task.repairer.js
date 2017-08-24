@@ -1,8 +1,8 @@
 var aquire = function (pointer, creep) {
     var structure = creep.pos.findClosestByRange(FIND_STRUCTURES, {
         filter: function (s) {
-            return ((s.structureType === "constructedWall" || s.structureType === "rampart") && s.hits < 6000)
-                || (s.structureType === "road" && s.hits < 2000)
+            return ((s.structureType === STRUCTURE_WALL || s.structureType === STRUCTURE_RAMPART) && s.hits < 6000)
+                || (s.structureType === STRUCTURE_ROAD && s.hits < 2000) || (s.structureType === STRUCTURE_CONTAINER && s.hits < 50000)
                 && (creep.network().working(s.id) < 1)
         }
     });
@@ -18,12 +18,17 @@ var aquire = function (pointer, creep) {
 };
 
 var repair = function (pointer, creep, target) {
-    if (target.structureType === "rampart" || target.structureType === "constructedWall" && target.hits > 14999) {
+    if (target.structureType === STRUCTURE_RAMPART || target.structureType === STRUCTURE_WALL && target.hits > 14999) {
         creep.change("idle", true);
         return;
     }
 
-    if (target.structureType === "road" && target.hits > 3899) {
+    if (target.structureType === STRUCTURE_ROAD && target.hits > 3899) {
+        creep.change("idle", true);
+        return;
+    }
+
+    if (target.structureType === STRUCTURE_CONTAINER && target.hits > 100000) {
         creep.change("idle", true);
         return;
     }

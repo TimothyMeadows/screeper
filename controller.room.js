@@ -25,6 +25,18 @@ var wall = function (room, top, left, bottom, right, gate) {
     }
 };
 
+var rampart = function (room, top, left, bottom, right) {
+    var tiles = room.lookAtArea(top, left, bottom, right, true);
+
+    var i;
+    for (i = 0; i <= tiles.length - 1; i++) {
+        var tile = tiles[i];
+        if (tile.type === "terrain") {
+            room.build(STRUCTURE_RAMPART, tile.x, tile.y);
+        }
+    }
+};
+
 var road = function (room, top, left, bottom, right) {
     var tiles = room.lookAtArea(top, left, bottom, right, true);
 
@@ -94,10 +106,14 @@ var crossRoad = function (room) {
 var wallOffZones = function (room) {
     var map = new SquareMap();
 
-    wall(room, map.zone1.top, map.zone1.left, map.zone2.top, map.zone2.right, [[23, 12], [24, 12], [25, 12]]);
-    wall(room, map.zone1.top, map.zone1.left, map.zone3.bottom, map.zone3.left, [[12, 23], [12, 24], [12, 25]]);
-    wall(room, map.zone3.bottom, map.zone3.left, map.zone4.bottom, map.zone4.right, [[23, 36], [24, 36], [25, 36]]);
-    wall(room, map.zone2.top, map.zone2.right, map.zone4.bottom, map.zone4.right, [[36, 23], [36, 24], [36, 25]]);
+    //wall(room, map.zone1.top, map.zone1.left, map.zone2.top, map.zone2.right, [[23, 12], [24, 12], [25, 12]]);
+    //wall(room, map.zone1.top, map.zone1.left, map.zone3.bottom, map.zone3.left, [[12, 23], [12, 24], [12, 25]]);
+    //wall(room, map.zone3.bottom, map.zone3.left, map.zone4.bottom, map.zone4.right, [[23, 36], [24, 36], [25, 36]]);
+    //wall(room, map.zone2.top, map.zone2.right, map.zone4.bottom, map.zone4.right, [[36, 23], [36, 24], [36, 25]]);
+    rampart(room, map.zone1.top, map.zone1.left, map.zone2.top, map.zone2.right);
+    rampart(room, map.zone1.top, map.zone1.left, map.zone3.bottom, map.zone3.left);
+    rampart(room, map.zone3.bottom, map.zone3.left, map.zone4.bottom, map.zone4.right);
+    rampart(rroom, map.zone2.top, map.zone2.right, map.zone4.bottom, map.zone4.right);
 };
 
 var RoomController, levels = {};

@@ -1,7 +1,7 @@
 var aquire = function (pointer, creep) {
     var structure = creep.pos.findClosestByRange(FIND_STRUCTURES, {
         filter: (s) => {
-            return s.energy !== s.energyCapacity && creep.network().working(s.id) < 2;
+            return (s.energy !== s.energyCapacity) && creep.network().working(s.id) < 2;
         }
     });
 
