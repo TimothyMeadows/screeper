@@ -17,19 +17,30 @@ module.exports = VisualController = {
         }
     },
     tock: function (creep) {
-        if (!creep.memory._move) {
-            return;
+        return;
+        var pos = creep.pos;
+        if (creep.memory._move) {
+            var path = Room.deserializePath(creep.memory._move.path);
+            pos = path[0];
         }
-        
+
         var visual = creep.room.visual;
         var pointer = creep.room.memory.creeps[creep.name];
-        var path = Room.deserializePath(creep.memory._move.path);
+        var statuses = [];
 
         switch (pointer.caste.name) {
             case "worker":
-                if (path[0])
-                    visual.drawStatuses(path[0], [Icons.status_mine, Icons.status_build], 'orange');
+                statuses.push({ icon: Icons.worker, color: 'orange' });
+                break;
+            case "religious":
+                statuses.push({ icon: Icons.religious, color: 'green' });
+                break;
+            case "warrior":
+                statuses.push({ icon: Icons.warrior, color: 'red' });
                 break;
         }
+
+        if (pos)
+            visual.drawStatuses(pos, statuses);
     }
 };
