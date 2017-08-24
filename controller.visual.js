@@ -9,8 +9,23 @@ module.exports = VisualController = {
 
             var visual = creep.room.visual;
             if (creep.memory._move) {
+                var pointer = creep.room.memory.creeps[creep.name];
                 var path = Room.deserializePath(creep.memory._move.path);
-                visual.drawPath(path, 'grey');
+                var color = "grey";
+
+                switch (pointer.caste.name) {
+                    case "worker":
+                        color = "orange";
+                        break;
+                    case "religious":
+                        color = "green";
+                        break;
+                    case "warrior":
+                        color = "red";
+                        break;
+                }
+
+                visual.drawPath(path, color);
             }
 
             VisualController.tock(creep);
