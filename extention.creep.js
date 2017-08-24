@@ -1,16 +1,21 @@
 Creep.prototype.change = function (name, keepMemory) {
     var creep = this;
-    if (!keepMemory) keepMemory = false;
+    var pointer = creep.room.memory.creeps[creep.name];
+    if (!pointer) 
+        return;
+
+    if (!keepMemory)
+        keepMemory = false;
 
     if (keepMemory === false)
         delete creep.room.memory.creeps[creep.name].task.memory;
 
-    creep.room.memory.creeps[creep.name].task.start = Game.time;
+    pointer.task.start = Game.time;
     if (name !== "idle")
-        creep.room.memory.creeps[creep.name].task.target = null;
+        pointer.task.target = null;
 
-    creep.room.memory.creeps[creep.name].task.idle = false;
-    creep.room.memory.creeps[creep.name].task.name = name;
+    pointer.task.idle = false;
+    pointer.task.name = name;
 };
 
 Creep.prototype.traverse = function (target) {

@@ -6,7 +6,7 @@ module.exports = VisualController = {
             var visual = creep.room.visual;
             if (creep.memory._move) {
                 var path = Room.deserializePath(creep.memory._move.path);
-                visual.drawPath(path, 'red');
+                visual.drawPath(path, 'grey');
             }
         }
     }
