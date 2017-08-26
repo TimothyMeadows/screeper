@@ -17,6 +17,17 @@ var aquire = function (pointer, creep) {
 var transfer = function (pointer, creep, structure) {
     switch (creep.transfer(structure, RESOURCE_ENERGY)) {
         case ERR_NOT_IN_RANGE:
+            if (structure.energy === structure.energyCapacity) {
+                aquire(pointer, creep);
+                if (pointer.task.target === null)
+                    creep.change("idle", true);
+                else {
+                    var target = Game.getObjectById(pointer.task.target);
+                    transfer(pointer, creep, structure);
+                    return;
+                }
+            }
+            
             creep.traverse(structure);
             break;
         case ERR_FULL:
