@@ -110,6 +110,8 @@ var wallOffZones = function (room) {
     //wall(room, map.zone1.top, map.zone1.left, map.zone3.bottom, map.zone3.left, [[12, 23], [12, 24], [12, 25]]);
     //wall(room, map.zone3.bottom, map.zone3.left, map.zone4.bottom, map.zone4.right, [[23, 36], [24, 36], [25, 36]]);
     //wall(room, map.zone2.top, map.zone2.right, map.zone4.bottom, map.zone4.right, [[36, 23], [36, 24], [36, 25]]);
+    
+    // TODO: Until better map scanning code can be written, just make all "inner" walls ramparts.
     rampart(room, map.zone1.top, map.zone1.left, map.zone2.top, map.zone2.right);
     rampart(room, map.zone1.top, map.zone1.left, map.zone3.bottom, map.zone3.left);
     rampart(room, map.zone3.bottom, map.zone3.left, map.zone4.bottom, map.zone4.right);
@@ -163,17 +165,17 @@ module.exports = RoomController = {
             room.log(`room level changed, level: ${room.controller.level}`);
             room.memory.map.level = room.controller.level;
 
-            var miners = room.memory.map.work[0], builders;
+            var mines = room.memory.map.work[0], builders, miners;
             switch (room.memory.map.level) {
                 case 0:
                 case 1:
-                    if (miners > 2) {
+                    if (mines < 2)
+                        miners = mines;
+                    else
                         miners = 2;
-                    }
 
-                    room.memory.map.population = 9;
-                    builders = (room.memory.map.population - 2) - miners;
-                    room.memory.map.growth = { caste: [4, 1, 1], specialization: [[miners, 1, builders], [2, 0, 0], [0, 0, 0]] };
+                    room.memory.map.population = 5;
+                    room.memory.map.growth = { caste: [4, 1, 0], specialization: [[miners, 2, 0], [1, 0, 0], [0, 0, 0]] };
                     break;
                 case 2:
                 case 3:

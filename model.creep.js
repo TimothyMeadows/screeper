@@ -1,4 +1,3 @@
-var CasteModel = require("model.caste");
 var TaskModel = require("model.task");
 
 module.exports = function (id, name, caste, task, level) {
