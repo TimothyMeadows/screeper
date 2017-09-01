@@ -110,12 +110,12 @@ var wallOffZones = function (room) {
     //wall(room, map.zone1.top, map.zone1.left, map.zone3.bottom, map.zone3.left, [[12, 23], [12, 24], [12, 25]]);
     //wall(room, map.zone3.bottom, map.zone3.left, map.zone4.bottom, map.zone4.right, [[23, 36], [24, 36], [25, 36]]);
     //wall(room, map.zone2.top, map.zone2.right, map.zone4.bottom, map.zone4.right, [[36, 23], [36, 24], [36, 25]]);
-    
+
     // TODO: Until better map scanning code can be written, just make all "inner" walls ramparts.
     rampart(room, map.zone1.top, map.zone1.left, map.zone2.top, map.zone2.right);
     rampart(room, map.zone1.top, map.zone1.left, map.zone3.bottom, map.zone3.left);
     rampart(room, map.zone3.bottom, map.zone3.left, map.zone4.bottom, map.zone4.right);
-    rampart(rroom, map.zone2.top, map.zone2.right, map.zone4.bottom, map.zone4.right);
+    rampart(room, map.zone2.top, map.zone2.right, map.zone4.bottom, map.zone4.right);
 };
 
 var RoomController, levels = {};
@@ -175,19 +175,29 @@ module.exports = RoomController = {
                         miners = 2;
 
                     room.memory.map.population = 5;
-                    room.memory.map.growth = { caste: [4, 1, 0], specialization: [[miners, 2, 0], [1, 0, 0], [0, 0, 0]] };
+                    builders = (room.memory.map.population - 1) - (miners + 1);
+                    room.memory.map.growth = { caste: [4, 1, 0], specialization: [[miners, 1, builders], [1, 0, 0], [0, 0, 0]] };
                     break;
                 case 2:
                 case 3:
+                    if (mines < 3)
+                        miners = mines;
+                    else
+                        miners = 3;
+
+                    room.memory.map.population = 10;
+                    builders = (room.memory.map.population - 4) - (miners + 1);
+                    room.memory.map.growth = { caste: [6, 3, 1], specialization: [[miners, 1, builders], [3, 0, 0], [1, 0, 0]] };
                 case 4:
                 case 5:
                 default:
-                    if (miners > 5) {
+                    if (mines < 5)
+                        miners = mines;
+                    else
                         miners = 5;
-                    }
 
                     room.memory.map.population = 15;
-                    builders = (room.memory.map.population - 9) - miners;
+                    builders = (room.memory.map.population - 7) - (miners + 2);
                     room.memory.map.growth = { caste: [8, 4, 3], specialization: [[miners, 2, builders], [4, 0, 0], [3, 0, 0]] };
                     break;
             }

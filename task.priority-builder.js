@@ -37,6 +37,11 @@ var aquire = function (pointer, creep) {
 var build = function (pointer, creep, structure) {
     switch (creep.build(structure)) {
         case ERR_NOT_IN_RANGE:
+            if (structure.progress === structure.progressTotal) {
+                pointer.task.target = null;
+                return;
+            }
+
             creep.traverse(structure);
             break;
         case ERR_INVALID_TARGET:
