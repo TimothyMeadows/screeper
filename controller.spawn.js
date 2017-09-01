@@ -21,7 +21,7 @@ var calculateTraining = function (name, spec) {
             base = [CARRY, CARRY, CARRY, MOVE, MOVE, MOVE];
             switch (spec) {
                 case "prior":
-                    focus = [MOVE, CARRY];
+                    focus = [MOVE, MOVE, CARRY];
                     break;
                 case "healer":
                     focus = [HEAL, MOVE];
@@ -36,13 +36,13 @@ var calculateTraining = function (name, spec) {
             base = [WORK, CARRY, CARRY, CARRY, MOVE];
             switch (spec) {
                 case "miner":
-                    focus = [WORK];
+                    focus = [WORK, MOVE];
                     break;
                 case "builder":
-                    focus = [MOVE, WORK];
+                    focus = [WORK, MOVE];
                     break;
                 case "contractor":
-                    focus = [MOVE, CARRY];
+                    focus = [MOVE, CARRY, WORK];
                     break;
             }
             break;
