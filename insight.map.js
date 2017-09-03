@@ -82,11 +82,11 @@ module.exports = MapInsights = function (room) {
     }
 
     if (work[0] < 5)
-        this.habitable = false;
+        this.habitable = habitable = false;
 
     if (region1.score + region2.score < 13000)
-        this.habitable = false;
+        this.habitable = habitable = false;
 
-    if (!this.habitable)
+    if (!habitable)
         this.type = "mine";
 };
