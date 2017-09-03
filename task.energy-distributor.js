@@ -1,6 +1,7 @@
 var Status = require("model.status");
 
 var aquire = function (pointer, creep) {
+    pointer.status = Status.aquiring;
     var structure = creep.pos.findClosestByRange(FIND_STRUCTURES, {
         filter: (s) => {
             return (s.energy !== s.energyCapacity) && creep.network().working(s.id) < 2;

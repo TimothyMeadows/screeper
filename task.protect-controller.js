@@ -4,7 +4,7 @@ var TaskProtectController;
 var aquire = function (pointer, creep) {
     pointer.status = Status.aquiring;
     pointer.task.target = creep.room.controller.id;
-    creep.room.log(`${creep.name} has been assgined upgrade controller, target: ${pointer.task.target}`);
+    creep.room.log(`${creep.name} has been assgined protect controller, target: ${pointer.task.target}`);
 };
 
 var protect = function(pointer, creep, target) {

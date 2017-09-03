@@ -1,4 +1,15 @@
-﻿Room.prototype.hostiles = function () {
+﻿Room.prototype.towers = function () {
+    var room = this;
+    var size = _.size(room.find(FIND_STRUCTURES, {
+        filter: function (s) {
+            return s.structureType === STRUCTURE_TOWER
+        }
+    }));
+
+    return size;
+};
+
+Room.prototype.hostiles = function () {
     var room = this;
     return _.size(room.find(FIND_HOSTILE_CREEPS));
 };

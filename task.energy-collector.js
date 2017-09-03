@@ -8,6 +8,9 @@ var aquire = function (pointer, creep) {
                 && creep.network().working(c.id) < 1
                 && (c.room.memory.creeps[c.name].caste.specialization === "miner"
                     || (c.room.memory.creeps[c.name].caste.name === "religious"
+                        && (c.room.memory.creeps[c.name].status !== Status.moving
+                            || c.room.memory.creeps[c.name].status !== Status.aquiring
+                        )
                         && pointer.caste.name !== "religious"
                         && c.room.memory.creeps[c.name].id !== creep.id
                     ));
@@ -23,6 +26,13 @@ var aquire = function (pointer, creep) {
 
     for (i in creeps) {
         var current = creeps[i];
+        var currentPointer = current.room.memory.creeps[current.name];
+
+        if ((currentPointer.status === Status.moving
+            || currentPointer.status === Status.aquiring
+        ))
+            continue;
+
         pointer.task.target = current.id;
         creep.room.log(`${creep.name} has been assgined collect resource, target: ${pointer.task.target}, workers: ${creep.network().working(pointer.task.target)}/1`);
         break;
@@ -33,10 +43,12 @@ var transfer = function (pointer, creep, target) {
     switch (target.transfer(creep, RESOURCE_ENERGY)) {
         case ERR_NOT_IN_RANGE:
             if (target instanceof Creep) {
-                if (creep.room.memory.creeps[target.name].caste.specialization === "miner")
+                if (creep.room.memory.creeps[target.name].caste.specialization === "miner") {
                     creep.traverse(target);
-                else
+                }
+                else {
                     target.traverse(creep);
+                }
 
             } else {
                 creep.traverse(target);

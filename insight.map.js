@@ -5,6 +5,8 @@ var MapInsights;
 module.exports = MapInsights = function (room) {
     var level = this.level = 0;
     var population = this.population = 0;
+    var type = this.type = "base";
+    var habitable = this.habitable = true;
     var growth = this.growth = null;
     var work = this.work = [0];
     var check = this.check = [];
@@ -78,4 +80,13 @@ module.exports = MapInsights = function (room) {
         source = sources[i];
         work[0] += source.getCapacity();
     }
+
+    if (work[0] < 5)
+        this.habitable = false;
+
+    if (region1.score + region2.score < 13000)
+        this.habitable = false;
+
+    if (!this.habitable)
+        this.type = "mine";
 };

@@ -145,7 +145,8 @@ module.exports = RoomController = {
                         break;
                     case "wall-off-zones":
                         if (room.controller.level >= 3)
-                            wallOffZones(room);
+                            if (room.towers() > 0)
+                                wallOffZones(room);
                         break;
                     case "extentions":
                         if (room.controller.level >= 2)
