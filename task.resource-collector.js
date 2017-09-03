@@ -1,3 +1,5 @@
+var Status = require("model.status");
+
 var aquire = function (pointer, creep) {
     var i, resources = creep.room.find(FIND_DROPPED_RESOURCES, {
         filter: function (r) {
@@ -30,6 +32,8 @@ var pickup = function (pointer, creep, resource) {
                 creep.change("idle", true);
                 return;
             }
+
+            pointer.status = Status.working;
             break;
     }
 };

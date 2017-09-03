@@ -1,3 +1,5 @@
+var Status = require("model.status");
+
 var aquire = function (pointer, creep) {
     var structure = creep.pos.findClosestByRange(FIND_STRUCTURES, {
         filter: (s) => {
@@ -38,6 +40,8 @@ var transfer = function (pointer, creep, structure) {
             } else {
                 pointer.task.target = null;
             }
+
+            pointer.status = Status.working;
             break;
     }
 };

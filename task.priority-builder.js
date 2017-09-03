@@ -1,3 +1,5 @@
+var Status = require("model.status");
+
 var aquire = function (pointer, creep) {
     if (creep.room.priorityRepairs() !== 0) {
         creep.change("idle", true);
@@ -51,6 +53,8 @@ var build = function (pointer, creep, structure) {
                 creep.change("idle", true);
             if (structure.progress === structure.progressTotal)
                 creep.change("idle", true);
+
+            pointer.status = Status.working;
             break;
     }
 };

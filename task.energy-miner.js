@@ -1,3 +1,5 @@
+var Status = require("model.status");
+
 var aquire = function (pointer, creep) {
     var source = creep.pos.findClosestByRange(FIND_SOURCES_ACTIVE, {
         filter: function (source) {
@@ -41,6 +43,8 @@ var harvest = function (pointer, creep, source) {
             if (creep.carry.energy === creep.carryCapacity) {
                 creep.change("idle", true);
             }
+
+            pointer.status = Status.working;
             break;
     }
 };

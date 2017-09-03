@@ -17,6 +17,8 @@ var aquire = function (pointer, creep) {
     creep.room.log(`${creep.name} has been assgined build, target: ${pointer.task.target}, workers: ${creep.network().working(pointer.task.target)}/2`);
 };
 
+var Status = require("model.status");
+
 var build = function (pointer, creep, structure) {
     switch (creep.build(structure)) {
         case ERR_NOT_IN_RANGE:
@@ -29,6 +31,8 @@ var build = function (pointer, creep, structure) {
                 creep.change("idle", true);
             if (structure.progress === structure.progressTotal)
                 creep.change("idle", true);
+
+            pointer.status = Status.working;
             break;
     }
 };

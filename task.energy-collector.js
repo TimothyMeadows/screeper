@@ -1,3 +1,5 @@
+var Status = require("model.status");
+
 var aquire = function (pointer, creep) {
     var i, creeps = creep.room.find(FIND_MY_CREEPS, {
         filter: function (c) {
@@ -47,6 +49,8 @@ var transfer = function (pointer, creep, target) {
             if (creep.carry.energy === 0) {
                 creep.change("idle", true);
             }
+
+            pointer.status = Status.working;
             break;
     }
 };

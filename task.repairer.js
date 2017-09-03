@@ -1,3 +1,5 @@
+var Status = require("model.status");
+
 var aquire = function (pointer, creep) {
     var structure = creep.pos.findClosestByRange(FIND_STRUCTURES, {
         filter: function (s) {
@@ -45,6 +47,8 @@ var repair = function (pointer, creep, target) {
             if (creep.carry.energy === 0) {
                 creep.change("idle", true);
             }
+
+            pointer.status = Status.working;
             break;
     }
 };

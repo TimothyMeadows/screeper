@@ -1,3 +1,5 @@
+var Status = require("model.status");
+
 var aquire = function (pointer, creep) {
     pointer.task.target = creep.room.controller.id;
     creep.room.log(`${creep.name} has been assgined upgrade controller, target: ${pointer.task.target}`);
@@ -13,6 +15,8 @@ var upgrade = function (pointer, creep, target) {
                 creep.change("idle", true);
                 return;
             }
+
+            pointer.status = Status.working;
             break;
     }
 };
