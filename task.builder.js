@@ -1,4 +1,5 @@
 var aquire = function (pointer, creep) {
+    pointer.status = Status.aquiring;
     if (creep.room.priorityRepairs() !== 0) {
         creep.change("idle", true);
         return;

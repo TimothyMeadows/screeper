@@ -23,6 +23,9 @@ Creep.prototype.change = function (name, keepMemory) {
 Creep.prototype.traverse = function (target) {
     // TODO: This should be deciding if it should use pathing or moveTo based on distance to move
     var creep = this;
+    var pointer = creep.room.memory.creeps[creep.name];
+
+    pointer.status = 5; // moving
     creep.moveTo(target);
     VisualController.tock(creep);
 };

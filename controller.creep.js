@@ -118,7 +118,12 @@ module.exports = CreepController = {
                 case "warrior":
                     switch (pointer.caste.specialization) {
                         case "purifier":
+                        if (room.hostiles() === 0) {
+                            creep.change("protect-controller", true);
+                        } else {
                             creep.change("ranged-kiting", true);
+                        }
+                            
                             break;
                         case "guardian":
                             break;

@@ -1,6 +1,7 @@
 var Status = require("model.status");
 
 var aquire = function (pointer, creep) {
+    pointer.status = Status.aquiring;
     var i, creeps = creep.room.find(FIND_MY_CREEPS, {
         filter: function (c) {
             return c.carry.energy > 0
