@@ -132,8 +132,5 @@ module.exports = CreepControllerBase = {
                     break;
             }
         }
-
-        var task = require(`task.${pointer.task.name}`);
-        task.tick(room, pointer);
     }
 };
