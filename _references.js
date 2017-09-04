@@ -35,3 +35,4 @@
 /// <reference path="autocomplete/Structures/StructureTower.js" />
 /// <reference path="autocomplete/Structures/StructureWall.js" />
 /// <reference path="autocomplete/Global/Constants.js" />
+/// <reference path="extention.global.js" />

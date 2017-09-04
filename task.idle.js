@@ -8,6 +8,8 @@ module.exports = TaskIdle = {
 
         pointer.status = Status.idle;
         pointer.task.idle = true;
+        delete Memory.creeps[pointer.name];
+        
         if (creep && creep.room && creep.room.visual)
             creep.room.visual.drawStatus(creep.pos, Icons.idle, "white");
     }
