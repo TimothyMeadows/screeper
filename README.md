@@ -1,2 +1,2 @@
 # Screeper
-Run `npm install` before starting development.
+This is a bot (ai) for the game [screeps](https://www.screeps.com)
