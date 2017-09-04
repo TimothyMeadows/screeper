@@ -1,3 +1,5 @@
+var Status = require("model.status");
+
 var CreepControllerBase;
 module.exports = CreepControllerBase = {
     tick: function (room, pointer) {
@@ -93,6 +95,10 @@ module.exports = CreepControllerBase = {
                 case "religious":
                     switch (pointer.caste.specialization) {
                         case "prior":
+                            if (creep.status === Status.moving) {
+                                return;
+                            }
+
                             if (creep.carry.energy < creep.carryCapacity) {
                                 creep.change("energy-collector", true);
                             } else {

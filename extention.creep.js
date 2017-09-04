@@ -1,6 +1,6 @@
 var VisualController = require("controller.visual");
 
-Creep.prototype.change = function (name, keepMemory) {
+Creep.prototype.change = function (name, keepMemory, keepTarget) {
     var creep = this;
     var pointer = creep.room.memory.creeps[creep.name];
     if (!pointer) 
@@ -9,11 +9,14 @@ Creep.prototype.change = function (name, keepMemory) {
     if (!keepMemory)
         keepMemory = false;
 
+    if (!keepTarget)
+        keepTarget = false;
+
     if (keepMemory === false)
         delete creep.room.memory.creeps[creep.name].task.memory;
 
     pointer.task.start = Game.time;
-    if (name !== "idle")
+    if (name !== "idle" && !keepTarget)
         pointer.task.target = null;
 
     pointer.task.idle = false;

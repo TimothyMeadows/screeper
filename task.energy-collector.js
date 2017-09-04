@@ -34,6 +34,7 @@ var aquire = function (pointer, creep) {
             continue;
 
         pointer.task.target = current.id;
+        currentPointer.status = Status.moving;
         creep.room.log(`${creep.name} has been assgined collect resource, target: ${pointer.task.target}, workers: ${creep.network().working(pointer.task.target)}/1`);
         break;
     }
@@ -43,10 +44,10 @@ var transfer = function (pointer, creep, target) {
     switch (target.transfer(creep, RESOURCE_ENERGY)) {
         case ERR_NOT_IN_RANGE:
             if (target instanceof Creep) {
-                if (creep.room.memory.creeps[target.name].caste.specialization === "miner") {
+                var targetPointer = creep.room.memory.creeps[target.name];
+                if (targetPointer.caste.specialization === "miner") {
                     creep.traverse(target);
-                }
-                else {
+                } else {
                     target.traverse(creep);
                 }
 
@@ -56,11 +57,13 @@ var transfer = function (pointer, creep, target) {
             break;
         case ERR_FULL:
             creep.change("idle", true);
+            target.change("idle", true);
             break;
         case ERR_NOT_ENOUGH_ENERGY:
         case OK:
             if (creep.carry.energy === 0) {
                 creep.change("idle", true);
+                target.change("idle", true);
             }
 
             pointer.status = Status.working;
