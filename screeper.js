@@ -29,11 +29,12 @@ module.exports = Screeper = {
     // Triggers on creation / destruction based on disposed
     room: function (name, disposed) {
         if (disposed) {
-            global.log(`room ${name} was lost!`);
             RoomController.loss(name);
+            global.log(`room ${name} was lost!`);
         } else {
-            global.log(`room ${name} was gained!`);
+            var pointer = Memory.rooms[name];
             RoomController.gain(Game.rooms[name]);
+            global.log(`room ${name} was gained!, type: ${pointer.map.type}`);
         }
     },
     // Triggers on cpu limit being reached, other triggers will be skipped until the next tick to allow time to catch up
