@@ -41,10 +41,11 @@ var aquire = function (pointer, creep) {
 };
 
 var transfer = function (pointer, creep, target) {
+    var targetPointer = creep.room.memory.creeps[target.name];
+    
     switch (target.transfer(creep, RESOURCE_ENERGY)) {
         case ERR_NOT_IN_RANGE:
             if (target instanceof Creep) {
-                var targetPointer = creep.room.memory.creeps[target.name];
                 if (targetPointer.caste.specialization === "miner") {
                     creep.traverse(target);
                 } else {
@@ -61,12 +62,13 @@ var transfer = function (pointer, creep, target) {
             break;
         case ERR_NOT_ENOUGH_ENERGY:
         case OK:
-            if (creep.carry.energy === 0) {
+            if (target.carry.energy === 0) {
                 creep.change("idle", true);
                 target.change("idle", true);
             }
 
             pointer.status = Status.working;
+            targetPointer.status = Status.working;
             break;
     }
 };

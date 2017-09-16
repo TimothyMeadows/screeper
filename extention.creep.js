@@ -1,4 +1,6 @@
 var VisualController = require("controller.visual");
+var Icons = require("model.icons");
+var Status = require("model.status");
 
 Creep.prototype.change = function (name, keepMemory, keepTarget) {
     var creep = this;
@@ -28,9 +30,13 @@ Creep.prototype.traverse = function (target) {
     var creep = this;
     var pointer = creep.room.memory.creeps[creep.name];
 
-    pointer.status = 5; // moving
-    creep.moveTo(target);
-    VisualController.tock(creep);
+    pointer.status = Status.moving;
+    if (creep.moveTo(target) === ERR_TIRED) {
+        pointer.status = Status.tired;
+
+        if (creep && creep.room && creep.room.visual)
+            creep.room.visual.drawStatus(creep.pos, Icons.tired, "red");
+    }
 };
 
 Creep.prototype.network = function () {

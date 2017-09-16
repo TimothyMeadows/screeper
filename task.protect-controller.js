@@ -8,6 +8,11 @@ var aquire = function (pointer, creep) {
 };
 
 var protect = function(pointer, creep, target) {
+    if (creep.inRangeTo(target, 1)) {
+        creep.change("idle", true);
+        return;
+    }
+    
     pointer.status = Status.moving;
     creep.traverse(target);
 };

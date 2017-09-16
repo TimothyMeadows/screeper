@@ -95,10 +95,6 @@ module.exports = CreepControllerBase = {
                 case "religious":
                     switch (pointer.caste.specialization) {
                         case "prior":
-                            if (creep.status === Status.moving) {
-                                return;
-                            }
-
                             if (creep.carry.energy < creep.carryCapacity) {
                                 creep.change("energy-collector", true);
                             } else {
@@ -121,9 +117,11 @@ module.exports = CreepControllerBase = {
                             break;
                     }
                     break;
+                default:
                 case "warrior":
                     switch (pointer.caste.specialization) {
                         case "purifier":
+                            console.log("hostiles: " + room.hostiles());
                             if (room.hostiles() === 0) {
                                 creep.change("protect-controller", true);
                             } else {
