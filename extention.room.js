@@ -145,3 +145,13 @@ Room.prototype.build = function (structureType, x, y) {
             break;
     };
 }
+
+Room.prototype.exits = function(to) {
+    var room = this;
+    return Game.map.findExit(room.name, to);
+}
+
+Room.prototype.exit = function() {
+    var room = this;
+    return Game.map.describeExits(room.name);
+}
