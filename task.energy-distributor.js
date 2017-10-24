@@ -18,6 +18,9 @@ var aquire = function (pointer, creep) {
 };
 
 var transfer = function (pointer, creep, structure) {
+    if (structure instanceof Creep)
+        return;
+        
     switch (creep.transfer(structure, RESOURCE_ENERGY)) {
         case ERR_NOT_IN_RANGE:
             if (structure.energy === structure.energyCapacity) {

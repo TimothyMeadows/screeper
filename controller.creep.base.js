@@ -121,7 +121,6 @@ module.exports = CreepControllerBase = {
                 case "warrior":
                     switch (pointer.caste.specialization) {
                         case "purifier":
-                            console.log("hostiles: " + room.hostiles());
                             if (room.hostiles() === 0) {
                                 creep.change("protect-controller", true);
                             } else {

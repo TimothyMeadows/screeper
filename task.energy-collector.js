@@ -49,6 +49,7 @@ var transfer = function (pointer, creep, target) {
                 if (targetPointer.caste.specialization === "miner") {
                     creep.traverse(target);
                 } else {
+                    targetPointer.task.target = creep.id;
                     target.traverse(creep);
                 }
 
