@@ -1,4 +1,5 @@
 require("extension.random");
+require("extension.visual");
 Debug = require("extension.debug");
 
 var Screeper = require("screeper");
