@@ -1,4 +1,5 @@
 require("extension.random");
+Debug = require("extension.debug");
 
 var Screeper = require("screeper");
 module.exports.loop = function () {
