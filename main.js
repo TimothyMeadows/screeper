@@ -7,4 +7,6 @@ module.exports.loop = function () {
         if (Screeper.busy) Screeper.busy();
         return;
     }
+
+    if (Screeper.tick) Screeper.tick();
 };
