@@ -1,11 +1,3 @@
-Room.prototype.findExit = function(target) {
-    return Game.map.findExit(this.name, target);
-};
-
-Room.prototype.findExits = function() {
-    return Game.map.describeExits(this.name);
-};
-
 Room.prototype.build = function (type, x, y) {
     var position = new RoomPosition(x, y, this.name);
     var tile = Game.map.getTerrainAt(position);
